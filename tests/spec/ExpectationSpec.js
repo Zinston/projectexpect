@@ -6,9 +6,9 @@ describe('Expectation', function() {
 	})
 
 	it('should be able to complete', function() {
-		expect(expectation.status).toBe('pending');
+		expect(expectation.get('complete')).toBe(false);
 
-		expectation.complete();
-		expect(expectation.status).toBe('complete');
+		expectation.set('complete', true);
+		expect(expectation.get('complete')).toBe(true);
 	})
 });

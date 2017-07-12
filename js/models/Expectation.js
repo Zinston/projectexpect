@@ -1,7 +1,9 @@
-function Expectation() {
-	this.status = 'pending';
-};
+var Expectation = Backbone.Model.extend({
+	initialize: function(){
+      console.log('Expectation has been initialized.');
+ 	},
 
-Expectation.prototype.complete = function() {
-	this.status = 'complete';
-};
+ 	defaults: {
+		complete: false
+  	}
+});

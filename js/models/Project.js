@@ -1,54 +1,57 @@
-function Project() {
-	this.tasks = [];
-	this.status = 'pending';
-};
+var Project = Backbone.Collection.extend({
+	model: Task
+});
+/*
+ 	initialize: function(){
+      console.log('Project has been initialized.');
+ 	},
 
-Project.prototype.addTask = function(task) {
-	this.tasks.push(task);
-};
+ 	defaults: {
+		complete: false
+  	},
 
-Project.prototype.getTask = function(index) {
-	return this.tasks[index];
-};
-
-Project.prototype.deleteTask = function(index) {
-	this.tasks.splice(index, 1);
-	this.completeIfEmpty();
-};
-
-Project.prototype.getTaskStatus = function(index) {
-	return this.getTask(index).status;
-};
-
-Project.prototype.completeTask = function(index) {
-	this.getTask(index).complete();
-	this.completeIfAllTasksComplete();
-};
-
-Project.prototype.complete = function() {
-	this.status = 'complete';
-};
-
-Project.prototype.isEmpty = function() {
-	if (this.getTask(0)) return false;
-	else return true;
-};
-
-Project.prototype.allTasksComplete = function() {
-	for (var i = 0; i < this.tasks.length; i++) {
-		if (this.getTaskStatus(i) === 'pending') {
-			return false;
+	allTasksComplete: function() {
+		for (var i = 0; i < this.tasks.length; i++) {
+			if (!this.taskisComplete(i)) {
+				return false;
+			};
 		};
-	};
-	return true;
-};
+		return true;
+	},
 
-Project.prototype.completeIfEmpty = function() {
-	if (this.isEmpty()) this.status = 'complete';
-	else this.status = 'pending';
-};
+	complete: function() {
+		this.set('complete', true);
+	},
 
-Project.prototype.completeIfAllTasksComplete = function() {
-	if (this.allTasksComplete()) this.status = 'complete';
-	else this.status = 'pending';
-};
+	completeIfAllTasksComplete: function() {
+		this.set('complete', this.allTasksComplete());
+	},
+
+	completeIfEmpty: function() {
+		this.set('complete', this.isEmpty());
+	},
+
+	completeTask: function(index) {
+		this.getTask(index).complete();
+		this.completeIfAllTasksComplete();
+	},
+
+	deleteTask: function(index) {
+		this.get('tasks').splice(index, 1);
+		this.completeIfEmpty();
+	},
+
+	getTask: function(index) {
+		return this.get('tasks')[index];
+	},
+
+	isEmpty: function() {
+		if (this.getTask(0)) return false;
+		else return true;
+	},
+
+	taskisComplete: function(index) {
+		return getTask(index).get('complete');
+	}
+});
+*/

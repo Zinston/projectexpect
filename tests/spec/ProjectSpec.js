@@ -3,19 +3,20 @@ describe('Project', function() {
 		thisTask;
 
 	beforeEach(function() {
-		project = new Project();
-		thisTask = new Task();
+		thisExpectation = new Expectation();
+		thisTask = new Task([thisExpectation]);
+		project = new Project([thisTask]);
 	});
 
 	it('should be able to complete', function() {
-		expect(project.status).toBe('pending');
+		expect(project.get('complete')).toBe(false);
 
 		project.complete();
-		expect(project.status).toBe('complete');
+		expect(project.get('complete')).toBe(true);
 	});
 
 	it('should be able to add a task', function() {
-		project.addTask(thisTask);
+		project.add(thisTask);
 
 		expect(project.getTask(0)).toBe(thisTask);
 	});
@@ -29,31 +30,31 @@ describe('Project', function() {
 
 	it('should be able to complete a task', function() {
 		project.addTask(thisTask);
-		expect(project.getTaskStatus(0)).toBe('pending');
+		expect(project.taskIsComplete(0)).toBe(false);
 
 		project.completeTask(0);
-		expect(project.getTaskStatus(0)).toBe('complete');
+		expect(project.taskIsComplete(0)).toBe(true);
 	});
 
 	it ('should complete when no task is present', function() {
 		project.addTask(thisTask);
 		project.addTask(new Task());
-		expect(project.status).toBe('pending');
+		expect(project.get('complete')).toBe(false);
 
 		project.deleteTask(0);
-		expect(project.status).toBe('pending');
+		expect(project.get('complete')).toBe(false);
 		project.deleteTask(0);
-		expect(project.status).toBe('complete');
+		expect(project.get('complete')).toBe(true);
 	});
 
 	it ('should complete when all tasks are complete', function() {
 		project.addTask(thisTask);
 		project.addTask(new Task());
-		expect(project.status).toBe('pending');
+		expect(project.get('complete')).toBe(false);
 
 		project.completeTask(0);
-		expect(project.status).toBe('pending');
+		expect(project.get('complete')).toBe(false);
 		project.completeTask(1);
-		expect(project.status).toBe('complete');
+		expect(project.get('complete')).toBe(true);
 	});
 });

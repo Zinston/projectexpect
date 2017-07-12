@@ -1,3 +1,13 @@
+var Task = Backbone.Collection.extend({
+	model: Expectation,
+
+	defaults: {
+		complete: false
+	}
+});
+
+/*
+
 function Task() {
 	this.expectations = [];
 	this.status = 'pending';
@@ -52,3 +62,5 @@ Task.prototype.completeIfAllExpectationsComplete = function() {
 	if (this.allExpectationsComplete()) this.status = 'complete';
 	else this.status = 'pending';
 };
+
+*/
