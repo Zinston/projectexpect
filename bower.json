@@ -1,0 +1,21 @@
+{
+  "name": "ProjectExpect",
+  "authors": [
+    "Antoine Guenet <aguenet@gmail.com>"
+  ],
+  "description": "Define your expectations to complete your projects.",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "^1.3.3"
+  }
+}
