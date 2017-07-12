@@ -7,16 +7,16 @@ describe('Task', function() {
 	});
 
 	it('should be able to add an expectation', function() {
-		task.add(thisExpectation);
+		task.addExpectation(thisExpectation);
 
-		expect(task.length).toBe(1);
+		expect(task.get('expectations').length).toBe(1);
 	});
 
-	it ('should be able to remove an expectation', function() {
-		task.add(thisExpectation);
-		task.remove(thisExpectation);
+	it ('should be able to delete an expectation', function() {
+		task.addExpectation(thisExpectation);
+		task.deleteExpectation(thisExpectation);
 
-		expect(task.length).toBe(0);
+		expect(task.get('expectations').length).toBe(0);
 	});
 
 	it('should be able to complete', function() {
@@ -28,31 +28,33 @@ describe('Task', function() {
 
 	it ('should be able to complete an expectation', function() {
 		task.addExpectation(thisExpectation);
-		expect(task.getExpectationStatus(0)).toBe('pending');
+		expect(task.expectationIsComplete(thisExpectation)).toBe(false);
 
-		task.completeExpectation(0);
-		expect(task.getExpectationStatus(0)).toBe('complete');
+		task.completeExpectation(thisExpectation);
+		expect(task.expectationIsComplete(thisExpectation)).toBe(true);
 	});
 
 	it ('should complete when no expectation is present', function() {
 		task.addExpectation(thisExpectation);
-		task.addExpectation(new Expectation());
-		expect(task.get('complete')).toBe('pending');
+		var thatExpectation = new Expectation();
+		task.addExpectation(thatExpectation);
+		expect(task.get('complete')).toBe(false);
 
-		task.deleteExpectation(0);
-		expect(task.get('complete')).toBe('pending');
-		task.deleteExpectation(0);
-		expect(task.get('complete')).toBe('complete');
+		task.deleteExpectation(thisExpectation);
+		expect(task.get('complete')).toBe(false);
+		task.deleteExpectation(thatExpectation);
+		expect(task.get('complete')).toBe(true);
 	});
 
 	it ('should complete when all expectations are complete', function() {
 		task.addExpectation(thisExpectation);
-		task.addExpectation(new Expectation());
-		expect(task.get('complete')).toBe('pending');
+		var thatExpectation = new Expectation();
+		task.addExpectation(thatExpectation);
+		expect(task.get('complete')).toBe(false);
 
-		task.completeExpectation(0);
-		expect(task.get('complete')).toBe('pending');
-		task.completeExpectation(1);
-		expect(task.get('complete')).toBe('complete');
+		task.completeExpectation(thisExpectation);
+		expect(task.get('complete')).toBe(false);
+		task.completeExpectation(thatExpectation);
+		expect(task.get('complete')).toBe(true);
 	});
 });
