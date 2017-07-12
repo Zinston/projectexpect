@@ -1,5 +1,52 @@
-var Project = Backbone.Collection.extend({
-	model: Task
+var Project = Backbone.Model.extend({
+	initialize: function() {
+		this.set('tasks', new Tasks()),
+		_.bindAll(this,'taskIsComplete');
+	},
+
+	defaults: {
+		complete: false
+	},
+
+	addTask: function(task) {
+		this.get('tasks').add(task);
+	},
+
+	completeTask: function(task) {
+		task.set('complete', true);
+		this.completeIfTasksComplete();
+	},
+
+	completeIfEmpty: function() {
+		this.set('complete', this.isEmpty());
+	},
+
+	completeIfTasksComplete: function() {
+		this.set('complete', this.tasksAreComplete());
+	},
+
+	deleteTask: function(task) {
+		this.get('tasks').remove(task);
+		this.completeIfEmpty();
+	},
+
+	taskIsComplete: function(task) {
+		return task.get('complete');
+	},
+
+	tasksAreComplete: function() {
+		var self = this;
+		var result = true;
+
+		this.get('tasks').forEach(function(task) {
+			if (!self.taskIsComplete(task)) return result = false;
+		});
+		return result;
+	},
+
+	isEmpty: function() {
+		return !this.get('tasks').length;
+	}
 });
 /*
  	initialize: function(){
