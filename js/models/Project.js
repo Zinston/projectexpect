@@ -26,6 +26,7 @@ var Project = Backbone.Model.extend({
 	},
 
 	deleteTask: function(task) {
+		if (typeof task === "number") task = this.getTask(task);
 		this.get('tasks').remove(task);
 		this.completeIfEmpty();
 	},

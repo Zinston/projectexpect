@@ -20,7 +20,14 @@ describe('Task', function() {
 		expect(task.getExpectation(0)).toBe(thisExpectation);
 	});
 
-	it ('should be able to delete an expectation', function() {
+	it ('should be able to delete an expectation by index', function() {
+		task.addExpectation(thisExpectation);
+		task.deleteExpectation(0);
+
+		expect(task.getExpectation(0)).not.toBeDefined();
+	});
+
+	it ('should be able to delete an expectation by expectation', function() {
 		task.addExpectation(thisExpectation);
 		task.deleteExpectation(thisExpectation);
 

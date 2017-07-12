@@ -22,7 +22,15 @@ describe('Project', function() {
 		expect(project.getTask(0)).toBe(thisTask);
 	});
 
-	it('should be able to delete a task', function() {
+	it('should be able to delete a task by index', function() {
+		project.addTask(thisTask);
+		project.deleteTask(0);
+		project.deleteTask(1);
+
+		expect(project.getTask(0)).not.toBeDefined();
+	});
+
+	it('should be able to delete a task by task', function() {
 		project.addTask(thisTask);
 		project.deleteTask(thisTask);
 

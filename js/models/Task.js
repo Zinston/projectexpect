@@ -26,6 +26,7 @@ var Task = Backbone.Model.extend({
 	},
 
 	deleteExpectation: function(expectation) {
+		if (typeof expectation === "number") expectation = this.getExpectation(expectation);
 		this.get('expectations').remove(expectation);
 		this.completeIfEmpty();
 	},
