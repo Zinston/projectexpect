@@ -6,17 +6,25 @@ describe('Task', function() {
 		thisExpectation = new Expectation();
 	});
 
+	it('should be able to get an expectation by index', function() {
+		task.addExpectation(thisExpectation);
+		task.addExpectation(new Expectation());
+
+		expect(task.getExpectation(0)).toBe(thisExpectation);
+		expect(task.getExpectation(1)).not.toBe(thisExpectation);
+	});
+
 	it('should be able to add an expectation', function() {
 		task.addExpectation(thisExpectation);
 
-		expect(task.get('expectations').length).toBe(1);
+		expect(task.getExpectation(0)).toBe(thisExpectation);
 	});
 
 	it ('should be able to delete an expectation', function() {
 		task.addExpectation(thisExpectation);
 		task.deleteExpectation(thisExpectation);
 
-		expect(task.get('expectations').length).toBe(0);
+		expect(task.getExpectation(0)).not.toBeDefined();
 	});
 
 	it('should be able to complete', function() {

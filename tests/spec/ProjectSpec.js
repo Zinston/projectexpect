@@ -8,17 +8,25 @@ describe('Project', function() {
 		thisExpectation = new Expectation();
 	});
 
+	it('should be able to get a task by index', function() {
+		project.addTask(thisTask);
+		project.addTask(new Task());
+
+		expect(project.getTask(0)).toBe(thisTask);
+		expect(project.getTask(1)).not.toBe(thisTask);
+	});
+
 	it('should be able to add a task', function() {
 		project.addTask(thisTask);
 
-		expect(project.get('tasks').length).toBe(1);
+		expect(project.getTask(0)).toBe(thisTask);
 	});
 
 	it('should be able to delete a task', function() {
 		project.addTask(thisTask);
 		project.deleteTask(thisTask);
 
-		expect(project.get('tasks').length).toBe(0);
+		expect(project.getTask(0)).not.toBeDefined();
 	});
 
 	it('should be able to complete', function() {

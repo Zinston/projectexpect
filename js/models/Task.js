@@ -44,6 +44,10 @@ var Task = Backbone.Model.extend({
 		return result;
 	},
 
+	getExpectation: function(index) {
+		return this.get('expectations').at(index);
+	},
+
 	isEmpty: function() {
 		return !this.get('expectations').length;
 	}
