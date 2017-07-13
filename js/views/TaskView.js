@@ -5,7 +5,9 @@ var TaskView = Backbone.View.extend({
 	template: _.template( $('#task-template').html() ),
 
 	render: function() {
-		this.$el.html( this.template( this.model.attributes ) );
+		var obj = this.model.attributes;
+		obj.cid = this.model.cid;
+		this.$el.html( this.template( obj ) );
 		return this;
     }
 });

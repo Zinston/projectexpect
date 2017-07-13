@@ -5,7 +5,7 @@ var ExpectationView = Backbone.View.extend({
 	template: _.template( $('#expectation-template').html() ),
 
 	render: function() {
-		this.$el.html( this.template( this.model.attributes ) );
+		this.$el.html( this.template( obj ) );
 		return this;
     }
 });
