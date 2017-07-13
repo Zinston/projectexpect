@@ -2,6 +2,11 @@
 <html>
 <head>
 	<title>Project Expect</title>
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
+	<!-- Styles -->
+	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 	
@@ -13,13 +18,14 @@
 		<section id="tasks"></section>
 		<footer id="footer"></footer>
 	</section>
+	<section id="page-footer">© Antoine Guenet 2017</section>
 
     <script type="text/template" id="task-template">
-		<%= title %>
+		<label><%= title %></label>
 		<input id="new-expectation" placeholder="What do you expect from this task?" autofocus>
   	</script>
   	<script type="text/template" id="expectation-template">
-  		<%= title %>
+  		<label><%= title %></label>
   	</script>
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
