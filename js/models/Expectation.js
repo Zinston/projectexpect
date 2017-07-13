@@ -4,6 +4,7 @@ var Expectation = Backbone.Model.extend({
  	},
 
  	defaults: {
-		complete: false
+		complete: false,
+		title: 'No title'
   	}
 });

@@ -15,9 +15,11 @@
 	</section>
 
     <script type="text/template" id="task-template">
-    		<%= title %>
-    		<input class="new-expectation" placeholder="What do you expect from this task?" autofocus>
-    		<div class="expectations"></div>
+		<%= title %>
+		<input class="new-expectation" placeholder="What do you expect from this task?" autofocus>
+  	</script>
+  	<script type="text/template" id="expectation-template">
+  		<%= title %>
   	</script>
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -28,6 +30,7 @@
     <script src="js/models/Expectation.js"></script>
     <script src="js/collections/Expectations.js"></script>
     <script src="js/collections/Tasks.js"></script>
+    <script src="js/views/ExpectationView.js"></script>
     <script src="js/views/TaskView.js"></script>
     <script src="js/views/AppView.js"></script>
 </body>
