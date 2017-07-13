@@ -1,16 +1,21 @@
 var AppView = Backbone.View.extend ({
    
-   el: '#container', 
+   el: '#projectapp', 
 
    // It's the first function called when this view is instantiated. 
    initialize: function() { 
-      this.render(); 
-   }, 
+      tasks = new Tasks();
+      this.listenTo(tasks, 'add', this.addTask);
+   },
 
-   // $el - it's a cached jQuery object (el), in which you can use jQuery functions to push content.
-   //Like the Hello World in this case. 
-   render: function() { 
-      this.$el.html("<h1>Project Expect</h1>"); 
-   } 
-});  
-var appView = new AppView();
+   addTask: function( task ) {
+      var view = new TaskView({ model: task });
+      $('#tasks').append( view.render().el );
+   }
+});
+
+var tasks;
+
+$(function() {
+   new AppView();
+});

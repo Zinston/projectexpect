@@ -5,7 +5,8 @@ var Task = Backbone.Model.extend({
 	},
 
 	defaults: {
-		complete: false
+		complete: false,
+		title: 'No title'
 	},
 
 	addExpectation: function(expectation) {

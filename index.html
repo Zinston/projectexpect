@@ -4,14 +4,31 @@
 	<title>Project Expect</title>
 </head>
 <body>
-	<div id="container"></div>
+	
+	<section id="projectapp">
+		<header id="header">
+			<h1>Project Expect</h1>
+			<input id="new-project" placeholder="What needs to be accomplished?" autofocus>
+		</header>
+		<section id="tasks"></section>
+		<footer id="footer"></footer>
+	</section>
+
+    <script type="text/template" id="task-template">
+    	<ul class="view">
+    		<%= title %>
+    	</ul>
+  	</script>
+
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="bower_components/underscore/underscore-min.js"></script>
 	<script src="bower_components/backbone/backbone-min.js"></script>
 	<script src="js/models/Project.js"></script>
     <script src="js/models/Task.js"></script>
     <script src="js/models/Expectation.js"></script>
+    <script src="js/collections/Expectations.js"></script>
+    <script src="js/collections/Tasks.js"></script>
+    <script src="js/views/TaskView.js"></script>
     <script src="js/views/AppView.js"></script>
-    <script src="js/views/ProjectView.js"></script>
 </body>
 </html>
