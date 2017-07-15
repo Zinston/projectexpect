@@ -12,16 +12,22 @@ var ExpectationView = Backbone.View.extend({
 
 	initialize: function() {
         this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'change:complete', this.updateComplete);
 	},
 
 	render: function() {
 		this.$el.html( this.template( this.model.attributes ) );
+		this.updateComplete();
 		return this;
     },
 
-    completeExpectation: function(elem) {
+    updateComplete: function() {
+    	if (this.model.get('complete')) this.$el.addClass('complete');
+    	else this.$el.removeClass('complete');
+    },
+
+    completeExpectation: function() {
     	this.model.toggle();
-    	this.$el.toggleClass('complete');
     },
 
     close: function() {

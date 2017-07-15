@@ -32,7 +32,13 @@ var Task = Backbone.Model.extend({
 	},
 
 	completeIfExpectationsComplete: function() {
-		this.set('complete', this.expectationsAreComplete());
+		var self = this;
+		this.set('complete', self.expectationsAreComplete());
+
+		this.get('expectations').forEach(function(expectation) {
+			console.log(expectation.get('title') + ': ' + expectation.get('complete'));
+		});
+		console.log('task: ' + this.get('complete'));
 	},
 
 	deleteExpectation: function(expectation) {
