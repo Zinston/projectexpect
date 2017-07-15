@@ -10,6 +10,5 @@ var Expectation = Backbone.Model.extend({
 
   	toggle: function() {
   		this.complete = !this.complete;
-  		console.log(this.complete);
   	}
 });

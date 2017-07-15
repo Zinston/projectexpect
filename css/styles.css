@@ -77,3 +77,11 @@
 	font-family: 'Bellefair', serif;
 	font-size: 20px;
 }
+
+.complete {
+	color: green;
+}
+
+.complete :after {
+	content: ' -- done!';
+}

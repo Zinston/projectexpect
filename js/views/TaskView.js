@@ -10,7 +10,7 @@ var TaskView = Backbone.View.extend({
 
 	initialize: function() {
     	this.$input = this.$('#new-expectation');
-        this.listenTo(this.model.get('expectations'), 'add', this.addExpectation)
+        this.listenTo(this.model.get('expectations'), 'add', this.addExpectation);
     },
 
 	render: function() {
