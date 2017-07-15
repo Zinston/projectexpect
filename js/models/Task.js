@@ -20,6 +20,7 @@ var Task = Backbone.Model.extend({
 
 	addExpectation: function(expectation) {
 		this.get('expectations').add(expectation);
+		this.completeIfExpectationsComplete();
 	},
 
 	completeExpectation: function(expectation) {
