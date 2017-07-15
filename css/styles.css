@@ -63,6 +63,22 @@
 	background-color: #e8e8e8;
 }
 
+#edit-expectation-btn {
+}
+
+#edit-expectation {
+	display: none;
+	width: 50%;
+	line-height: 1.4em;
+
+	font-family: 'Bellefair', serif!important;
+	font-size: 20px;
+	font-style: normal!important;
+	color: black!important;
+
+	background-color: white;
+}
+
 #tasks label {
 	display: block;
 }

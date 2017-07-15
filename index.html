@@ -26,7 +26,9 @@
 		<input id="new-expectation" placeholder="What do you expect from this task?" autofocus>
   	</script>
   	<script type="text/template" id="expectation-template">
-  		<label><%= title %></label>
+  		<label id="expectation-name"><%= title %></label>
+  		<button id="edit-expectation-btn">Edit</button>
+		<input id="edit-expectation" value="<%= title %>" onfocus="this.value = this.value;">
   	</script>
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
