@@ -11,6 +11,7 @@ var TaskView = Backbone.View.extend({
 	initialize: function() {
     	this.$input = this.$('#new-expectation');
         this.listenTo(this.model.get('expectations'), 'add', this.addExpectation);
+        this.listenTo(this.model.get('expectations'), 'change', this.logThis);
     },
 
 	render: function() {
@@ -29,10 +30,13 @@ var TaskView = Backbone.View.extend({
         	return;
       	}
 
-        var newExp = new Expectation();
-        newExp.set('title', this.$input.val());
+        var newExp = new Expectation({title: this.$input.val(), validate: true});
         tasks.at(this.model.get('id')).addExpectation(newExp);
 
         this.$input.val('');
+   },
+
+   logThis: function( event ) {
+        console.log(event);
    }
 });

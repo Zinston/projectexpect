@@ -23,9 +23,7 @@ var AppView = Backbone.View.extend ({
          return;
       }
 
-      var newTask = new Task();
-      newTask.set('title', this.$taskInput.val());
-      newTask.set('id', nextID++);
+      var newTask = new Task({title: this.$taskInput.val(), id: nextID++, validate: true});
       tasks.add(newTask);
 
       this.$taskInput.val('');

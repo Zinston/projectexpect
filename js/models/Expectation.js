@@ -5,8 +5,13 @@ var Expectation = Backbone.Model.extend({
 
  	defaults: {
 		complete: false,
-		title: 'No title'
   	},
+
+  	validate: function(attributes){
+	    if(attributes.title === undefined){
+	        return "Remember to set a title for your expectation.";
+	    }
+    },
 
   	toggle: function() {
   		this.complete = !this.complete;

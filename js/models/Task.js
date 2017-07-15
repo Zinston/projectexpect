@@ -10,6 +10,12 @@ var Task = Backbone.Model.extend({
 		id: 0
 	},
 
+	validate: function(attributes){
+	    if(attributes.title === undefined){
+	        return "Remember to set a title for your task.";
+	    }
+    },
+
 	addExpectation: function(expectation) {
 		this.get('expectations').add(expectation);
 	},
@@ -53,5 +59,9 @@ var Task = Backbone.Model.extend({
 
 	isEmpty: function() {
 		return !this.get('expectations').length;
-	}
+	},
+
+  	toggle: function() {
+  		this.complete = !this.complete;
+  	}
 });
