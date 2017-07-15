@@ -22,7 +22,7 @@
 
     <script type="text/template" id="task-template">
 		<label id="task-name"><%= title %></label>
-		<input id="edit-task" placeholder="<%= title %>">
+		<input id="edit-task" value="<%= title %>" onfocus="this.value = this.value;">
 		<input id="new-expectation" placeholder="What do you expect from this task?" autofocus>
   	</script>
   	<script type="text/template" id="expectation-template">

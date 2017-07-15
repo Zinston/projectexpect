@@ -62,5 +62,7 @@ var TaskView = Backbone.View.extend({
    edit: function() {
         this.$el.children('#task-name').css('display', 'none');
         this.$el.children('#edit-task').css('display', 'inline');
+
+        this.$el.children('#edit-task').focus();
    }
 });

@@ -52,10 +52,23 @@
 
 #edit-task {
 	display: none;
+	width: 50%;
+	line-height: 1.4em;
+
+	font-family: 'Yanone Kaffeesatz', sans-serif!important;
+	font-size: 25px;
+	font-style: normal!important;
+	color: black!important;
+
+	background-color: #e8e8e8;
 }
 
 #tasks label {
 	display: block;
+}
+
+#tasks label:hover {
+	background-color: #efefef;
 }
 
 #tasks ul {
