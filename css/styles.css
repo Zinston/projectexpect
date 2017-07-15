@@ -133,16 +133,24 @@
 }
 
 .options {
-}
-
-#complete {
 	float: right;
 	margin-top: .25em;
+}
+
+.options #complete {
 	color: inherit;
 }
 
-#complete:hover {
+.options #complete:hover {
 	color: green;
+}
+
+.options #delete {
+	color: darkred;
+}
+
+.options #delete:hover {
+	color: red;
 }
 
 /*.complete :after {

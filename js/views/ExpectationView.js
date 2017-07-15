@@ -3,9 +3,10 @@ var ExpectationView = Backbone.View.extend({
 	className: 'expectation',
 
 	events: {
-      'dblclick': 'edit',
-      'keypress #edit-expectation': 'close',
-      'click #complete': 'completeExpectation'
+      'dblclick'					: 'edit',
+      'keypress #edit-expectation'	: 'close',
+      'click #complete'				: 'complete',
+      'click #delete'				: 'delete'
     },
 
 	template: _.template( $('#expectation-template').html() ),
@@ -26,7 +27,7 @@ var ExpectationView = Backbone.View.extend({
     	else this.$el.removeClass('complete');
     },
 
-    completeExpectation: function() {
+    complete: function() {
     	this.model.toggle();
     },
 
@@ -40,6 +41,10 @@ var ExpectationView = Backbone.View.extend({
         this.$el.children('#edit-expectation').toggleClass('hidden');
 
         this.model.set('title', this.$edit.val());
+    },
+
+    delete: function() {
+    	this.model.delete();
     },
 
     edit: function() {
