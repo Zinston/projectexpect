@@ -6,6 +6,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
 	<!-- Styles -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -22,13 +23,13 @@
 
     <script type="text/template" id="task-template">
 		<label id="task-name"><%= title %></label>
-		<input id="edit-task" value="<%= title %>" onfocus="this.value = this.value;">
+		<input id="edit-task" class="hidden" value="<%= title %>" onfocus="this.value = this.value;">
 		<input id="new-expectation" placeholder="What do you expect from this task?" autofocus>
   	</script>
   	<script type="text/template" id="expectation-template">
   		<label id="expectation-name"><%= title %></label>
-  		<button id="edit-expectation-btn">Edit</button>
-		<input id="edit-expectation" value="<%= title %>" onfocus="this.value = this.value;">
+		<input id="edit-expectation" class="hidden" value="<%= title %>" onfocus="this.value = this.value;">
+  		<i class="fa fa-check" id="complete"></i>
   	</script>
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>

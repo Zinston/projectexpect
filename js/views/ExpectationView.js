@@ -3,9 +3,9 @@ var ExpectationView = Backbone.View.extend({
 	className: 'expectation',
 
 	events: {
-      'click #edit-expectation-btn': 'edit',
+      'dblclick': 'edit',
       'keypress #edit-expectation': 'close',
-      'click #expectation-name': 'completeExpectation'
+      'click #complete': 'completeExpectation'
     },
 
 	template: _.template( $('#expectation-template').html() ),
@@ -30,17 +30,15 @@ var ExpectationView = Backbone.View.extend({
             return;
         }
 
-        this.$el.children('#expectation-name').css('display', 'block');
-        this.$el.children('#edit-expectation').css('display', 'none');
-        this.$el.children('#edit-expectation-btn').css('display', 'block');
+        this.$el.children('#expectation-name').toggleClass('hidden');
+        this.$el.children('#edit-expectation').toggleClass('hidden');
 
         this.model.set('title', this.$edit.val());
     },
 
     edit: function() {
-    	this.$el.children('#expectation-name').css('display', 'none');
-        this.$el.children('#edit-expectation').css('display', 'inline');
-        this.$el.children('#edit-expectation-btn').css('display', 'none');
+    	this.$el.children('#expectation-name').addClass('hidden');
+        this.$el.children('#edit-expectation').removeClass('hidden');
 
         this.$el.children('#edit-expectation').focus();
     }

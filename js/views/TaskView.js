@@ -53,15 +53,15 @@ var TaskView = Backbone.View.extend({
             return;
         }
 
-        this.$el.children('#task-name').css('display', 'block');
-        this.$el.children('#edit-task').css('display', 'none');
+        this.$el.children('#task-name').toggleClass('hidden');
+        this.$el.children('#edit-task').toggleClass('hidden');
 
         this.model.set('title', this.$edit.val());
    },
 
    edit: function() {
-        this.$el.children('#task-name').css('display', 'none');
-        this.$el.children('#edit-task').css('display', 'inline');
+        this.$el.children('#task-name').addClass('hidden');
+        this.$el.children('#edit-task').removeClass('hidden');
 
         this.$el.children('#edit-task').focus();
    }

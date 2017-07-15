@@ -51,7 +51,6 @@
 }
 
 #edit-task {
-	display: none;
 	width: 50%;
 	line-height: 1.4em;
 
@@ -63,11 +62,7 @@
 	background-color: #e8e8e8;
 }
 
-#edit-expectation-btn {
-}
-
 #edit-expectation {
-	display: none;
 	width: 50%;
 	line-height: 1.4em;
 
@@ -80,11 +75,6 @@
 }
 
 #tasks label {
-	display: block;
-}
-
-#tasks label:hover {
-	background-color: #efefef;
 }
 
 #tasks ul {
@@ -106,14 +96,48 @@
 	background-color: #fff;
 }
 
+#task-name {
+	float: left;
+	width: 100%;
+	text-decoration: inherit;
+}
+
+#task-name:hover {
+	background-color: #efefef;
+}
+
 .expectation {
 	font-family: 'Bellefair', serif;
 	font-size: 20px;
 }
 
+#expectation-name {
+	width: 80%;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#expectation-name:hover {
+	background-color: #efefef;
+}
+
+#complete {
+	float: right;
+	margin-top: .25em;
+	color: rgba(76, 175, 80, 0.54);
+}
+
+#complete:hover {
+	color: green;
+}
+
 .complete {
 	color: green;
 	text-decoration: line-through;
+}
+
+.hidden {
+	display: none;
 }
 
 /*.complete :after {
