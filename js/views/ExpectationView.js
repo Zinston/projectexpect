@@ -8,10 +8,6 @@ var ExpectationView = Backbone.View.extend({
 
 	template: _.template( $('#expectation-template').html() ),
 
-	initialize: function() {
-        this.listenTo(this.model.get('complete'), 'change', this.render);
-	},
-
 	render: function() {
 		this.$el.html( this.template( this.model.attributes ) );
 		return this;

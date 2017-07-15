@@ -11,7 +11,7 @@ var TaskView = Backbone.View.extend({
 	initialize: function() {
     	this.$input = this.$('#new-expectation');
         this.listenTo(this.model.get('expectations'), 'add', this.addExpectation);
-        this.listenTo(this.model.get('expectations'), 'change', this.logThis);
+        this.listenTo(this.model, 'change:complete', this.completeTask);
     },
 
 	render: function() {
@@ -36,7 +36,7 @@ var TaskView = Backbone.View.extend({
         this.$input.val('');
    },
 
-   logThis: function( event ) {
-        console.log(event);
+   completeTask: function() {
+        this.$el.toggleClass('complete');
    }
 });

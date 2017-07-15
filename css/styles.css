@@ -80,8 +80,9 @@
 
 .complete {
 	color: green;
+	text-decoration: line-through;
 }
 
-.complete :after {
+/*.complete :after {
 	content: ' -- done!';
-}
+}*/
