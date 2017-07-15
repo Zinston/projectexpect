@@ -1,3 +1,14 @@
+.complete {
+	color: green!important;
+	text-decoration: line-through;
+	background-color: rgba(76, 175, 80, 0.13)!important;
+	transition: background-color 2s;
+}
+
+.hidden {
+	display: none;
+}
+
 #projectapp {
 	width: 80%;
 	background: #fff;
@@ -93,7 +104,6 @@
 	margin-top: 8px;
 	padding: 3px;
 	border: 1px dashed #ccc;
-	background-color: #fff;
 }
 
 #task-name {
@@ -109,6 +119,7 @@
 .expectation {
 	font-family: 'Bellefair', serif;
 	font-size: 20px;
+	background-color: #fff;
 }
 
 #expectation-name {
@@ -121,23 +132,17 @@
 	background-color: #efefef;
 }
 
+.options {
+}
+
 #complete {
 	float: right;
 	margin-top: .25em;
-	color: rgba(76, 175, 80, 0.54);
+	color: inherit;
 }
 
 #complete:hover {
 	color: green;
-}
-
-.complete {
-	color: green;
-	text-decoration: line-through;
-}
-
-.hidden {
-	display: none;
 }
 
 /*.complete :after {
