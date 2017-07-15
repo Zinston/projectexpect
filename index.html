@@ -21,7 +21,8 @@
 	<section id="page-footer">© Antoine Guenet 2017</section>
 
     <script type="text/template" id="task-template">
-		<label><%= title %></label>
+		<label id="task-name"><%= title %></label>
+		<input id="edit-task" placeholder="<%= title %>">
 		<input id="new-expectation" placeholder="What do you expect from this task?" autofocus>
   	</script>
   	<script type="text/template" id="expectation-template">

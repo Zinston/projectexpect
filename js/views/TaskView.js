@@ -3,7 +3,9 @@ var TaskView = Backbone.View.extend({
 	className: 'task',
 
 	events: {
-      'keypress #new-expectation': 'createExpOnEnter'
+      'keypress #new-expectation': 'createExpOnEnter',
+      'dblclick #task-name': 'edit',
+      'keypress #edit-task': 'close'
     },
 
 	template: _.template( $('#task-template').html() ),
@@ -12,10 +14,15 @@ var TaskView = Backbone.View.extend({
     	this.$input = this.$('#new-expectation');
         this.listenTo(this.model.get('expectations'), 'add', this.addExpectation);
         this.listenTo(this.model, 'change:complete', this.completeTask);
+        this.listenTo(this.model, 'change', this.render);
     },
 
 	render: function() {
+        var self = this;
 		this.$el.html( this.template( this.model.attributes ) );
+        this.model.get('expectations').forEach(function(expectation) {
+            self.addExpectation(expectation);
+        });
 		return this;
     },
 
@@ -38,5 +45,22 @@ var TaskView = Backbone.View.extend({
 
    completeTask: function() {
         this.$el.toggleClass('complete');
+   },
+
+   close: function() {
+        this.$edit = this.$('#edit-task');
+        if ( event.which !== ENTER_KEY || !this.$edit.val().trim() ) {
+            return;
+        }
+
+        this.$el.children('#task-name').css('display', 'block');
+        this.$el.children('#edit-task').css('display', 'none');
+
+        this.model.set('title', this.$edit.val());
+   },
+
+   edit: function() {
+        this.$el.children('#task-name').css('display', 'none');
+        this.$el.children('#edit-task').css('display', 'inline');
    }
 });
