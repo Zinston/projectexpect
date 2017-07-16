@@ -18,6 +18,7 @@ var AppView = Backbone.View.extend ({
       $('#tasks').html('');
       var self = this;
       tasks.forEach(function(task) {
+         console.log(task.get('taskId'));
          self.addTask(task);
       });
       console.log("Render AppView");
