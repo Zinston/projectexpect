@@ -14,9 +14,7 @@ var Expectation = Backbone.Model.extend({
     },
 
     delete: function() {
-		if (typeof expectation === "number") expectation = this.getExpectation(expectation);
 		this.destroy();
-		console.log(tasks);
 	},
 
   	toggle: function() {

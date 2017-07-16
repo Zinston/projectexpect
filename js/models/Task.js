@@ -9,12 +9,12 @@ var Task = Backbone.Model.extend({
 	defaults: {
 		complete: false,
 		title: 'No title',
-		id: 0
+		taskId: 0
 	},
 
 	validate: function(attributes){
-	    if(attributes.title === undefined){
-	        return "Remember to set a title for your task.";
+	    if(attributes.title === undefined || attributes.taskId === undefined){
+	        return "Remember to set a title and an id for your task.";
 	    }
     },
 
@@ -40,6 +40,14 @@ var Task = Backbone.Model.extend({
 			console.log(expectation.get('title') + ': ' + expectation.get('complete'));
 		});
 		console.log('task: ' + this.get('complete'));
+	},
+
+	delete: function() {
+		try {
+			this.destroy();
+		} catch (err) {
+			console.log(err);
+		}
 	},
 
 	deleteExpectation: function(expectation) {

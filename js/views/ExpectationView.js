@@ -19,6 +19,7 @@ var ExpectationView = Backbone.View.extend({
 	render: function() {
 		this.$el.html( this.template( this.model.attributes ) );
 		this.updateComplete();
+		console.log("Render ExpectationView");
 		return this;
     },
 
