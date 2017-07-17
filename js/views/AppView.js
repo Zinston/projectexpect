@@ -9,7 +9,6 @@ var AppView = Backbone.View.extend ({
    initialize: function() { 
       this.$taskInput = this.$('#new-task');
 
-      tasks = new Tasks();
       this.listenTo(tasks, 'add', this.addTask);
       this.listenTo(tasks, 'remove', this.render);
    },
@@ -41,7 +40,6 @@ var AppView = Backbone.View.extend ({
    }
 });
 
-var tasks;
 var ENTER_KEY = 13;
 var nextID = 0;
 
