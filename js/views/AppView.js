@@ -11,13 +11,15 @@ var AppView = Backbone.View.extend ({
 
       this.listenTo(tasks, 'add', this.addTask);
       this.listenTo(tasks, 'remove', this.render);
+
+      // Initialize the tasks from localStorage
+      tasks.fetch();
    },
 
    render: function() {
       $('#tasks').html('');
       var self = this;
       tasks.forEach(function(task) {
-         console.log(task.get('taskId'));
          self.addTask(task);
       });
       console.log("Render AppView");
