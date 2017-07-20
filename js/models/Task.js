@@ -1,8 +1,5 @@
 var Task = Backbone.Model.extend({
 	initialize: function() {
-		this.set('expectations', new Expectations()),
-		_.bindAll(this,'expectationIsComplete');
-
 		this.expectations = new Expectations();
 
 		this.listenTo(this.expectations, 'all', this.completeIfExpectationsComplete);
@@ -31,12 +28,16 @@ var Task = Backbone.Model.extend({
 	},
 
 	completeIfEmpty: function() {
-		this.set('complete', this.isEmpty());
+		this.save({
+  			complete: this.isEmpty()
+  		});
 	},
 
 	completeIfExpectationsComplete: function() {
 		var self = this;
-		this.set('complete', self.expectationsAreComplete());
+		this.save({
+  			complete: self.expectationsAreComplete()
+  		});
 
 		this.logTasksAndExp();
 	},
@@ -53,6 +54,12 @@ var Task = Backbone.Model.extend({
 		if (typeof expectation === "number") expectation = this.getExpectation(expectation);
 		this.expectations.destroy(expectation);
 		this.completeIfEmpty();
+	},
+
+	editTitle: function(newTitle) {
+		this.save({
+			title: newTitle
+		});
 	},
 
 	expectationIsComplete: function(expectation) {
@@ -85,6 +92,8 @@ var Task = Backbone.Model.extend({
 	},
 
   	toggle: function() {
-  		this.complete = !this.complete;
+  		this.save({
+  			complete: !this.get('complete')
+  		});
   	}
 });

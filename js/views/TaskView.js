@@ -15,7 +15,7 @@ var TaskView = Backbone.View.extend({
         this.$input = this.$('#new-expectation');
         this.listenTo(this.model.expectations, 'add', this.addExpectation);
         this.listenTo(this.model.expectations, 'remove', this.removeExpectation);
-        this.listenTo(this.model, 'change:complete', this.completeTask);
+        this.listenTo(this.model, 'change:complete', this.updateComplete);
         this.listenTo(this.model, 'change', this.render);
 
         this.model.expectations.fetch();
@@ -29,6 +29,8 @@ var TaskView = Backbone.View.extend({
         this.model.expectations.forEach(function(expectation) {
             self.addExpectation(expectation);
         });
+
+        this.updateComplete();
         return this;
     },
 
@@ -49,8 +51,9 @@ var TaskView = Backbone.View.extend({
         this.$input.val('');
     },
 
-    completeTask: function() {
-        this.$el.toggleClass('complete');
+    updateComplete: function() {
+        if (this.model.get('complete')) this.$el.addClass('complete');
+        else this.$el.removeClass('complete');
     },
 
     close: function() {
@@ -62,7 +65,7 @@ var TaskView = Backbone.View.extend({
         this.$el.children('#task-name').toggleClass('hidden');
         this.$el.children('#edit-task').toggleClass('hidden');
 
-        this.model.set('title', this.$edit.val());
+        this.model.editTitle(this.$edit.val());
     },
 
     delete: function() {

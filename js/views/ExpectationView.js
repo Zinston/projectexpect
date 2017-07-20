@@ -41,7 +41,7 @@ var ExpectationView = Backbone.View.extend({
         this.$el.children('#expectation-name').toggleClass('hidden');
         this.$el.children('#edit-expectation').toggleClass('hidden');
 
-        this.model.set('title', this.$edit.val());
+        this.model.editTitle(this.$edit.val());
     },
 
     delete: function() {

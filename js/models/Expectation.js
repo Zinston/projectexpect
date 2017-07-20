@@ -17,6 +17,12 @@ var Expectation = Backbone.Model.extend({
 		this.destroy();
 	},
 
+	editTitle: function(newTitle) {
+		this.save({
+			title: newTitle
+		});
+	},
+
   	toggle: function() {
   		this.save({
   			complete: !this.get('complete')
