@@ -17,11 +17,11 @@ var TaskView = Backbone.View.extend({
         this.listenTo(this.model.expectations, 'remove', this.removeExpectation);
         this.listenTo(this.model, 'change:complete', this.updateComplete);
         this.listenTo(this.model, 'change', this.render);
-
-        this.model.expectations.fetch();
     },
 
     render: function() {
+        console.log('Render TaskView');
+
         this.$el.html( this.template( this.model.attributes ) );
 
         // Display all expectations for this task (a new view for each)
@@ -31,6 +31,8 @@ var TaskView = Backbone.View.extend({
         });
 
         this.updateComplete();
+
+        this.model.logTasksAndExp();
         return this;
     },
 
