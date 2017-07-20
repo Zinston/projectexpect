@@ -1,3 +1,5 @@
 var Expectations = Backbone.Collection.extend({
-	model: Expectation
+	model: Expectation,
+
+	localStorage: new Backbone.LocalStorage('project-expectations')
 });

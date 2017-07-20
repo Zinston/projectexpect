@@ -3,7 +3,9 @@ var Task = Backbone.Model.extend({
 		this.set('expectations', new Expectations()),
 		_.bindAll(this,'expectationIsComplete');
 
-		this.listenTo(this.get('expectations'), 'change:complete', this.completeIfExpectationsComplete);
+		this.expectations = new Expectations();
+
+		this.listenTo(this.expectations, 'change:complete', this.completeIfExpectationsComplete);
 	},
 
 	defaults: {
@@ -19,7 +21,7 @@ var Task = Backbone.Model.extend({
     },
 
 	addExpectation: function(expectation) {
-		this.get('expectations').add(expectation);
+		this.expectations.create(expectation);
 		this.completeIfExpectationsComplete();
 	},
 
@@ -36,7 +38,7 @@ var Task = Backbone.Model.extend({
 		var self = this;
 		this.set('complete', self.expectationsAreComplete());
 
-		this.get('expectations').forEach(function(expectation) {
+		this.expectations.each(function(expectation) {
 			console.log(expectation.get('title') + ': ' + expectation.get('complete'));
 		});
 		console.log('task: ' + this.get('complete'));
@@ -52,7 +54,7 @@ var Task = Backbone.Model.extend({
 
 	deleteExpectation: function(expectation) {
 		if (typeof expectation === "number") expectation = this.getExpectation(expectation);
-		this.get('expectations').remove(expectation);
+		this.expectations.destroy(expectation);
 		this.completeIfEmpty();
 	},
 
@@ -64,18 +66,18 @@ var Task = Backbone.Model.extend({
 		var self = this;
 		var result = true;
 
-		this.get('expectations').forEach(function(expectation) {
+		this.expectations.forEach(function(expectation) {
 			if (!self.expectationIsComplete(expectation)) return result = false;
 		});
 		return result;
 	},
 
 	getExpectation: function(index) {
-		return this.get('expectations').at(index);
+		return this.expectations.at(index);
 	},
 
 	isEmpty: function() {
-		return !this.get('expectations').length;
+		return !this.expectations.length;
 	},
 
   	toggle: function() {

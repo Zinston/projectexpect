@@ -13,19 +13,21 @@ var TaskView = Backbone.View.extend({
 
     initialize: function() {
         this.$input = this.$('#new-expectation');
-        this.listenTo(this.model.get('expectations'), 'add', this.addExpectation);
-        this.listenTo(this.model.get('expectations'), 'remove', this.render);
+        this.listenTo(this.model.expectations, 'add', this.addExpectation);
+        this.listenTo(this.model.expectations, 'remove', this.removeExpectation);
         this.listenTo(this.model, 'change:complete', this.completeTask);
         this.listenTo(this.model, 'change', this.render);
     },
 
     render: function() {
-        var self = this;
         this.$el.html( this.template( this.model.attributes ) );
-        this.model.get('expectations').forEach(function(expectation) {
+
+        // Display all expectations for this task (a new view for each)
+        var self = this;
+        console.log(this.model.expectations);
+        this.model.expectations.forEach(function(expectation) {
             self.addExpectation(expectation);
         });
-        console.log("Render TaskView");
         return this;
     },
 
@@ -47,6 +49,7 @@ var TaskView = Backbone.View.extend({
     },
 
     completeTask: function() {
+        console.log('complete task');
         this.$el.toggleClass('complete');
     },
 
@@ -71,5 +74,9 @@ var TaskView = Backbone.View.extend({
         this.$el.children('#edit-task').removeClass('hidden');
 
         this.$el.children('#edit-task').focus();
+    },
+
+    removeExpectation: function() {
+        this.render();
     }
 });
