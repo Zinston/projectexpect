@@ -17,11 +17,6 @@ var Task = Backbone.Model.extend({
 	    }
     },
 
-	addExpectation: function(expectation) {
-		this.expectations.create(expectation);
-		this.completeIfExpectationsComplete();
-	},
-
 	completeExpectation: function(expectation) {
 		expectation.save({
 			complete: true});

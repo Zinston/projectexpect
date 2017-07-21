@@ -1,6 +1,5 @@
 var Expectation = Backbone.Model.extend({
 	initialize: function(){
-      
  	},
 
  	defaults: {

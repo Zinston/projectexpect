@@ -27,8 +27,12 @@
 		<span class="options">
 			<i class="fa fa-remove" id="delete"></i>
 		</span>
-		<input id="new-expectation" placeholder="What do you expect from this task?" autofocus>
   	</script>
+
+  	<script type="text/template" id="expectations-list-template">
+  		<input id="new-expectation" placeholder="What do you expect from this task?" autofocus>
+  	</script>
+  	
   	<script type="text/template" id="expectation-template">
   		<label id="expectation-name"><%= title %></label>
 		<input id="edit-expectation" class="hidden" value="<%= title %>" onfocus="this.value = this.value;">
@@ -48,6 +52,7 @@
     <script src="js/collections/Expectations.js"></script>
     <script src="js/collections/Tasks.js"></script>
     <script src="js/views/ExpectationView.js"></script>
+    <script src="js/views/ExpectationsListView.js"></script>
     <script src="js/views/TaskView.js"></script>
     <script src="js/views/AppView.js"></script>
 </body>

@@ -3,7 +3,6 @@ var TaskView = Backbone.View.extend({
     className: 'task',
 
     events: {
-        'keypress #new-expectation'   :   'createExpOnEnter',
         'dblclick #task-name'         :   'edit',
         'keypress #edit-task'         :   'close',
         'click #delete'               :   'delete'
@@ -12,9 +11,6 @@ var TaskView = Backbone.View.extend({
     template: _.template( $('#task-template').html() ),
 
     initialize: function() {
-        this.$input = this.$('#new-expectation');
-        this.listenTo(this.model.expectations, 'add', this.addExpectation);
-        this.listenTo(this.model.expectations, 'remove', this.removeExpectation);
         this.listenTo(this.model, 'change:complete', this.updateComplete);
         this.listenTo(this.model, 'change', this.render);
     },
@@ -24,11 +20,7 @@ var TaskView = Backbone.View.extend({
 
         this.$el.html( this.template( this.model.attributes ) );
 
-        // Display all expectations for this task (a new view for each)
-        var self = this;
-        this.model.expectations.forEach(function(expectation) {
-            self.addExpectation(expectation);
-        });
+        if (this.$el.children('#new-expectation').length === 0) this.addExpectationsListView();
 
         this.updateComplete();
 
@@ -36,21 +28,9 @@ var TaskView = Backbone.View.extend({
         return this;
     },
 
-    addExpectation: function( expectation ) {
-        var view = new ExpectationView({ model: expectation });
+    addExpectationsListView: function() {
+        var view = new ExpectationsListView({ collection: this.model.expectations });
         this.$el.append( view.render().el );
-    },
-
-    createExpOnEnter: function( event ) {
-        this.$input = this.$el.children('#new-expectation');
-        if ( event.which !== ENTER_KEY || !this.$input.val().trim() ) {
-            return;
-        }
-
-        var newExp = new Expectation({title: this.$input.val(), validate: true});
-        tasks.get(this.model).addExpectation(newExp);
-
-        this.$input.val('');
     },
 
     updateComplete: function() {
@@ -79,9 +59,5 @@ var TaskView = Backbone.View.extend({
         this.$el.children('#edit-task').removeClass('hidden');
 
         this.$el.children('#edit-task').focus();
-    },
-
-    removeExpectation: function() {
-        this.render();
     }
 });
