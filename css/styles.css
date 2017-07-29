@@ -13,7 +13,7 @@
 	width: 80%;
 	background: #fff;
 	background: rgba(255, 255, 255, 0.9);
-	margin: 130px auto 40px auto;
+	margin: 0px auto 40px auto;
 	border: 1px solid #ccc;
 	position: relative;
 	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
@@ -33,14 +33,14 @@
 	color: #5a5a5a;
 }
 
-#projectapp h1 {
+h1 {
 	font-family: 'Yanone Kaffeesatz', sans-serif;
-	position: absolute;
-	top: -150px;
-	width: 100%;
+	text-align: center;
 	font-size: 70px;
 	color: #5a5a5a;
 	text-shadow: 2px 2px #e0e0e0;
+	margin-top: 35px;
+	margin-bottom: 10px;
 }
 
 #new-task {
