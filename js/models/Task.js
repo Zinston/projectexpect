@@ -1,8 +1,11 @@
 var Task = Backbone.Model.extend({
 	initialize: function() {
+		var localExp = this.get('expectations');
 		this.expectations = new Expectations();
+		if (localExp) localExp.forEach((exp) => this.expectations.add(exp));
 
 		this.listenTo(this.expectations, 'all', this.completeIfExpectationsComplete);
+		this.listenTo(this.expectations, 'add', (expectation) => this.save({expectations: this.expectations}));
 	},
 
 	defaults: {
@@ -16,13 +19,6 @@ var Task = Backbone.Model.extend({
 	        return "Remember to set a title and an id for your task.";
 	    }
     },
-
-	completeExpectation: function(expectation) {
-		expectation.save({
-			complete: true});
-		
-		this.completeIfExpectationsComplete();
-	},
 
 	completeIfEmpty: function() {
 		this.save({
@@ -44,12 +40,6 @@ var Task = Backbone.Model.extend({
 		} catch (err) {
 			console.log(err);
 		};
-	},
-
-	deleteExpectation: function(expectation) {
-		if (typeof expectation === "number") expectation = this.getExpectation(expectation);
-		this.expectations.destroy(expectation);
-		this.completeIfEmpty();
 	},
 
 	editTitle: function(newTitle) {
