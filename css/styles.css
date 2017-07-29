@@ -61,6 +61,12 @@
 	padding-bottom: 10px;
 }
 
+.closed {
+	transition: height 1s;
+	height: 0px;
+    overflow: hidden;
+}
+
 #edit-task {
 	width: 50%;
 	line-height: 1.4em;
@@ -107,8 +113,6 @@
 }
 
 #task-name {
-	float: left;
-	width: 100%;
 	text-decoration: inherit;
 }
 
@@ -134,7 +138,6 @@
 
 .options {
 	float: right;
-	margin-top: .25em;
 }
 
 .options #complete {
@@ -151,6 +154,14 @@
 
 .options #delete:hover {
 	color: red;
+}
+
+.options #collapse {
+	color: grey;
+}
+
+.options #collapse:hover {
+	color: black;
 }
 
 /*.complete :after {

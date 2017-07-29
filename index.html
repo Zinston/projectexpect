@@ -23,11 +23,12 @@
 	<section id="page-footer">© Antoine Guenet 2017</section>
 
     <script type="text/template" id="task-template">
+	    <span class="options">
+			<i class="fa fa-remove" id="delete"></i>
+			<i class="fa fa-minus" id="collapse"></i>
+		</span>
 		<label id="task-name"><%= title %></label>
 		<input id="edit-task" class="hidden" value="<%= title %>" onfocus="this.value = this.value;">
-		<span class="options">
-			<i class="fa fa-remove" id="delete"></i>
-		</span>
   	</script>
 
   	<script type="text/template" id="expectations-list-template">
@@ -35,12 +36,12 @@
   	</script>
   	
   	<script type="text/template" id="expectation-template">
-  		<label id="expectation-name"><%= title %></label>
-		<input id="edit-expectation" class="hidden" value="<%= title %>" onfocus="this.value = this.value;">
-		<span class="options">
+  		<span class="options">
 	  		<i class="fa fa-check" id="complete"></i>
 	  		<i class="fa fa-remove" id="delete"></i>
 	  	</span>
+  		<label id="expectation-name"><%= title %></label>
+		<input id="edit-expectation" class="hidden" value="<%= title %>" onfocus="this.value = this.value;">
   	</script>
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>

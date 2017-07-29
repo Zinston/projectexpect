@@ -3,6 +3,7 @@ var TaskView = Backbone.View.extend({
     className: 'task',
 
     events: {
+        'click #collapse'                       :   'toggleCollapse',
         'dblclick #task-name'         :   'edit',
         'keypress #edit-task'         :   'close',
         'click #delete'               :   'delete'
@@ -59,5 +60,9 @@ var TaskView = Backbone.View.extend({
         this.$el.children('#edit-task').removeClass('hidden');
 
         this.$el.children('#edit-task').focus();
+    },
+
+    toggleCollapse: function() {
+        this.$el.children('div').toggleClass('closed');
     }
 });
