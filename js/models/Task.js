@@ -5,7 +5,9 @@ var Task = Backbone.Model.extend({
 		if (localExp) localExp.forEach((exp) => this.expectations.add(exp));
 
 		this.listenTo(this.expectations, 'all', this.completeIfExpectationsComplete);
-		this.listenTo(this.expectations, 'add', (expectation) => this.save({expectations: this.expectations}));
+		this.listenTo(this.expectations, 'add', this.updateExpectations);
+		this.listenTo(this.expectations, 'remove', this.updateExpectations);
+		this.listenTo(this.expectations, 'change', this.updateExpectations);
 	},
 
 	defaults: {
@@ -98,5 +100,11 @@ var Task = Backbone.Model.extend({
   		this.save({
   			complete: !this.get('complete')
   		});
+  	},
+
+  	updateExpectations: function(expectation) {
+		this.save({
+			expectations: this.expectations
+		});
   	}
 });
