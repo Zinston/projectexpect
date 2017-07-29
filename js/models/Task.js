@@ -37,7 +37,6 @@ var Task = Backbone.Model.extend({
 
 	delete: function() {
 		try {
-			this.expectations.each((exp) => exp.destroy())
 			this.destroy();
 		} catch (err) {
 			console.log(err);
