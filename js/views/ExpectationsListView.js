@@ -22,6 +22,12 @@ var ExpectationsListView = Backbone.View.extend({
             self.addExpectation(expectation);
         });
 
+        var self = this;
+        this.$input = this.$el.children('#new-expectation');
+        _.defer(function(){
+            self.$input.focus();
+        });
+
         return this;
     },
 
@@ -31,15 +37,18 @@ var ExpectationsListView = Backbone.View.extend({
     },
 
     createOnEnter: function( event ) {
-        this.$input = this.$el.children('#new-expectation');
         if ( event.which !== ENTER_KEY || !this.$input.val().trim() ) {
             return;
         }
 
-        var newExp = new Expectation({title: this.$input.val(), validate: true});
+        var newExp = new Expectation({
+            title: this.$input.val(), 
+            validate: true
+        });
         this.collection.addExpectation(newExp);
 
         this.$input.val('');
+        this.$input.focus();
     },
 
     removeExpectation: function() {

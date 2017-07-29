@@ -8,6 +8,7 @@ var AppView = Backbone.View.extend ({
 
    initialize: function() { 
       this.$taskInput = this.$('#new-task');
+      this.$taskInput.focus();
 
       this.listenTo(tasks, 'add', this.addTask);
       this.listenTo(tasks, 'remove', this.render);
