@@ -4,7 +4,7 @@ var TaskView = Backbone.View.extend({
 
     events: {
         'keypress #task-name'         :   'close',
-        'click #delete'               :   'delete'
+        'click #delete-task'          :   'delete'
     },
 
     template: _.template( $('#task-template').html() ),
@@ -24,7 +24,7 @@ var TaskView = Backbone.View.extend({
             this.addExpectationsListView();
         }
 
-        this.updateComplete();
+        this.updateComplete('silent');
 
         this.model.logTasksAndExp();
         return this;
@@ -40,13 +40,16 @@ var TaskView = Backbone.View.extend({
         this.$el.collapsible('open');
     },
 
-    updateComplete: function() {
+    updateComplete: function(ui) {
         if (this.model.get('complete')) {
-            this.$el.children('.collapsible-header').addClass('green lighten-4');
+            this.$el.children('.collapsible-header').addClass('complete');
+            if (ui != 'silent') {
+                Materialize.toast("Congratulations, you completed a task!", 3000, 'rounded');
+            };
         }
         else {
-            this.$el.children('.collapsible-header').removeClass('green lighten-4');
-        }
+            this.$el.children('.collapsible-header').removeClass('complete');
+        };
     },
 
     close: function() {
@@ -57,11 +60,11 @@ var TaskView = Backbone.View.extend({
 
         this.model.editTitle(this.$edit.val());
         Materialize.toast("Task title updated to " + this.model.get('title'), 3000, 'rounded');
-        console.log("Task title updated to " + this.model.get('title'));
     },
 
     delete: function() {
         this.model.delete();
+        Materialize.toast("Task removed.", 3000, 'rounded');
     },
 
     edit: function() {

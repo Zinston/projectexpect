@@ -14,9 +14,8 @@ var ExpectationsListView = Backbone.View.extend({
 
     render: function() {
         console.log('Render ExpectationsListView');
-        console.log(this.$el);
         var self = this;
-        this.$el.append( self.template( self.collection.models ) );
+        this.$el.html( self.template( self.collection.models ) );
 
         // Display all expectations for this task (a new view for each)
         this.collection.models.forEach(function(expectation) {

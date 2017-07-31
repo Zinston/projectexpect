@@ -32,12 +32,27 @@ main {
 	cursor: pointer;
 }
 
-.options #delete {
+.options .delete-btn {
 	color: red;
 }
 
-.options #complete {
+.options .delete-btn:hover {
+	transition: color 300ms;
+	color: #ff6565;
+}
+
+.options .complete-btn {
 	color: green;
+}
+
+.options .complete-btn:hover {
+	transition: color 300ms;
+	color: #02d002;
+}
+
+.complete {
+	transition: background-color 1s;
+	background-color: #c8e6c9;
 }
 
 .page-footer {

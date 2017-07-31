@@ -5,7 +5,7 @@ var ExpectationView = Backbone.View.extend({
 	events: {
       'keypress #expectation-name'	: 'close',
       'click #complete'				: 'complete',
-      'click #delete'				: 'delete'
+      'click #delete-exp'			: 'delete'
     },
 
 	template: _.template( $('#expectation-template').html() ),
@@ -27,8 +27,12 @@ var ExpectationView = Backbone.View.extend({
     },
 
     updateComplete: function() {
-    	if (this.model.get('complete')) this.$el.addClass('green lighten-4');
-    	else this.$el.removeClass('green lighten-4');
+    	if (this.model.get('complete')) {
+            this.$el.addClass('complete');
+        }
+    	else {
+            this.$el.removeClass('complete');
+        }
     },
 
     complete: function() {
@@ -46,6 +50,7 @@ var ExpectationView = Backbone.View.extend({
 
     delete: function() {
     	this.model.delete();
+        Materialize.toast("Expectation removed.", 3000, 'rounded');
     },
 
     edit: function() {
