@@ -56,6 +56,8 @@ var TaskView = Backbone.View.extend({
         }
 
         this.model.editTitle(this.$edit.val());
+        Materialize.toast("Task title updated to " + this.model.get('title'), 3000, 'rounded');
+        console.log("Task title updated to " + this.model.get('title'));
     },
 
     delete: function() {

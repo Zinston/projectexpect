@@ -16,19 +16,27 @@
 </head>
 <body>
 	
-	<section id="projectapp">
-		<header id="header">
+	<main id="projectapp">
+		<section id="header">
 			<h1>Project Expect</h1>
 			<div class="container">
 				<input id="new-task" placeholder="Enter your task here">
 			</div>
-		</header>
+		</section>
 		<section id="content" class="container">
 			<ul id="tasks" class="collapsible popout" data-collapsible="expandable"></ul>
 		</section>
-		<footer id="footer"></footer>
-	</section>
-	<section id="page-footer">© Antoine Guenet 2017</section>
+	</main>
+
+	<footer class="page-footer green lighten-4">
+      	<div class="footer-copyright">
+        	<div class="container">
+        		© 2017 Antoine Guenet
+        	</div>
+      	</div>
+    </footer>
+
+    <!-- TEMPLATES -->
 
     <script type="text/template" id="task-template">
     	<div class="collapsible-header">

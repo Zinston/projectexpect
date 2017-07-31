@@ -1,6 +1,6 @@
 var ExpectationView = Backbone.View.extend({
 	tagName: 'div',
-	className: 'expectation card-panel row',
+	className: 'expectation card-panel row hoverable',
 
 	events: {
       'keypress #expectation-name'	: 'close',
