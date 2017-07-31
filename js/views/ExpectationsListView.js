@@ -9,7 +9,6 @@ var ExpectationsListView = Backbone.View.extend({
     initialize: function() {
         this.listenTo(this.collection, 'add', this.addExpectation);
         this.listenTo(this.collection, 'remove', this.removeExpectation);
-        this.$el.collapsible();
     },
 
     render: function() {
@@ -25,6 +24,7 @@ var ExpectationsListView = Backbone.View.extend({
         this.$input = this.$el.children('#new-expectation');
         _.defer(function(){
             self.$input.focus();
+            $('.collapsible').collapsible('open', 0);
         });
 
         return this;

@@ -37,7 +37,6 @@ var TaskView = Backbone.View.extend({
     addExpectationsListView: function() {
         var view = new ExpectationsListView({ collection: this.model.expectations });
         this.$el.append( view.render().el );
-        this.$el.collapsible('open');
     },
 
     updateComplete: function(ui) {
