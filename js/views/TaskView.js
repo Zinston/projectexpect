@@ -1,11 +1,9 @@
 var TaskView = Backbone.View.extend({
-    tagName: 'ul',
+    tagName: 'li',
     className: 'task',
 
     events: {
-        'click #collapse'                       :   'toggleCollapse',
-        'dblclick #task-name'         :   'edit',
-        'keypress #edit-task'         :   'close',
+        'keypress #task-name'         :   'close',
         'click #delete'               :   'delete'
     },
 
@@ -13,7 +11,8 @@ var TaskView = Backbone.View.extend({
 
     initialize: function() {
         this.listenTo(this.model, 'change:complete', this.updateComplete);
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'change', this.renderTitle);
+        this.$el.collapsible();
     },
 
     render: function() {
@@ -21,7 +20,9 @@ var TaskView = Backbone.View.extend({
 
         this.$el.html( this.template( this.model.attributes ) );
 
-        if (this.$el.children('#new-expectation').length === 0) this.addExpectationsListView();
+        if (this.$el.children('#new-expectation').length === 0) {
+            this.addExpectationsListView();
+        }
 
         this.updateComplete();
 
@@ -29,24 +30,30 @@ var TaskView = Backbone.View.extend({
         return this;
     },
 
+    renderTitle: function() {
+        this.$el.children('#task-name').val(this.model.get('title'));
+    },
+
     addExpectationsListView: function() {
         var view = new ExpectationsListView({ collection: this.model.expectations });
         this.$el.append( view.render().el );
+        this.$el.collapsible('open');
     },
 
     updateComplete: function() {
-        if (this.model.get('complete')) this.$el.addClass('complete');
-        else this.$el.removeClass('complete');
+        if (this.model.get('complete')) {
+            this.$el.children('.collapsible-header').addClass('green lighten-4');
+        }
+        else {
+            this.$el.children('.collapsible-header').removeClass('green lighten-4');
+        }
     },
 
     close: function() {
-        this.$edit = this.$('#edit-task');
+        this.$edit = this.$('#task-name');
         if ( event.which !== ENTER_KEY || !this.$edit.val().trim() ) {
             return;
         }
-
-        this.$el.children('#task-name').toggleClass('hidden');
-        this.$el.children('#edit-task').toggleClass('hidden');
 
         this.model.editTitle(this.$edit.val());
     },
@@ -60,9 +67,5 @@ var TaskView = Backbone.View.extend({
         this.$el.children('#edit-task').removeClass('hidden');
 
         this.$el.children('#edit-task').focus();
-    },
-
-    toggleCollapse: function() {
-        this.$el.children('div').toggleClass('closed');
     }
 });

@@ -12,8 +12,7 @@ var Task = Backbone.Model.extend({
 
 	defaults: {
 		complete: false,
-		title: 'No title',
-		taskId: 0
+		title: 'No title'
 	},
 
 	validate: function(attributes){

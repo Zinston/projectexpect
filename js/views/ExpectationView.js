@@ -1,10 +1,9 @@
 var ExpectationView = Backbone.View.extend({
-	tagName: 'li',
-	className: 'expectation',
+	tagName: 'div',
+	className: 'expectation card-panel row',
 
 	events: {
-      'dblclick'					: 'edit',
-      'keypress #edit-expectation'	: 'close',
+      'keypress #expectation-name'	: 'close',
       'click #complete'				: 'complete',
       'click #delete'				: 'delete'
     },
@@ -12,7 +11,7 @@ var ExpectationView = Backbone.View.extend({
 	template: _.template( $('#expectation-template').html() ),
 
 	initialize: function() {
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'change', this.renderTitle);
         this.listenTo(this.model, 'change:complete', this.updateComplete);
 	},
 
@@ -23,9 +22,13 @@ var ExpectationView = Backbone.View.extend({
 		return this;
     },
 
+    renderTitle: function() {
+        this.$el.children('#expectation-name').val(this.model.get('title'));
+    },
+
     updateComplete: function() {
-    	if (this.model.get('complete')) this.$el.addClass('complete');
-    	else this.$el.removeClass('complete');
+    	if (this.model.get('complete')) this.$el.addClass('green lighten-4');
+    	else this.$el.removeClass('green lighten-4');
     },
 
     complete: function() {
@@ -33,13 +36,10 @@ var ExpectationView = Backbone.View.extend({
     },
 
     close: function() {
-    	this.$edit = this.$('#edit-expectation');
+    	this.$edit = this.$('#expectation-name');
         if ( event.which !== ENTER_KEY || !this.$edit.val().trim() ) {
             return;
         }
-
-        this.$el.children('#expectation-name').toggleClass('hidden');
-        this.$el.children('#edit-expectation').toggleClass('hidden');
 
         this.model.editTitle(this.$edit.val());
     },
@@ -49,9 +49,6 @@ var ExpectationView = Backbone.View.extend({
     },
 
     edit: function() {
-    	this.$el.children('#expectation-name').addClass('hidden');
-        this.$el.children('#edit-expectation').removeClass('hidden');
-
-        this.$el.children('#edit-expectation').focus();
+    	this.$el.children('#expectation-name').focus();
     }
 });

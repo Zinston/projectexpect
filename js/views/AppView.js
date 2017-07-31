@@ -28,7 +28,7 @@ var AppView = Backbone.View.extend ({
 
    addTask: function( task ) {
       var view = new TaskView({ model: task });
-      $('#tasks').append( view.render().el );
+      $('#tasks').prepend( view.render().el );
    },
 
    createTaskOnEnter: function( event ) {

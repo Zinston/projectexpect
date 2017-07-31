@@ -1,169 +1,20 @@
-.complete {
-	color: green!important;
-	text-decoration: line-through;
-	background-color: rgba(76, 175, 80, 0.13)!important;
-	transition: background-color 2s;
-}
-
-.hidden {
-	display: none;
-}
-
-#projectapp {
-	width: 80%;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.9);
-	margin: 130px auto 40px auto;
-	border: 1px solid #ccc;
-	position: relative;
-	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
-				0 25px 50px 0 rgba(0, 0, 0, 0.15);
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-#projectapp input {
-	font-family: 'Josefin Sans', sans-serif;
-	font-style: italic;
-	box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
-	padding-left: 10px;
-	padding-right: 10px;
-	text-align: center;
-	color: #5a5a5a;
-}
-
-#projectapp h1 {
-	font-family: 'Yanone Kaffeesatz', sans-serif;
-	position: absolute;
-	top: -150px;
+#header {
+	margin: 10px auto 10px auto;
 	width: 100%;
-	font-size: 70px;
-	color: #5a5a5a;
-	text-shadow: 2px 2px #e0e0e0;
 }
 
-#new-task {
-	width: 75%;
-	font-size: 24px;
-	line-height: 1.4em;
-}
-
-#new-expectation {
-	width: 70%;
-	font-size: 18px;
-	line-height: 1.4em;
-}
-
-.task {
+#header h1 {
+	text-align: center;
 	font-family: 'Yanone Kaffeesatz', sans-serif;
-	font-size: 25px;
-	padding-bottom: 10px;
+	font-size: 70px;
+	text-shadow: 2px 2px #e0e0e0;
+	color: #5a5a5a;
 }
 
-.closed {
-	transition: height 1s;
-	height: 0px;
-    overflow: hidden;
-}
-
-#edit-task {
-	width: 50%;
-	line-height: 1.4em;
-
-	font-family: 'Yanone Kaffeesatz', sans-serif!important;
-	font-size: 25px;
-	font-style: normal!important;
-	color: black!important;
-
-	background-color: #e8e8e8;
-}
-
-#edit-expectation {
-	width: 50%;
-	line-height: 1.4em;
-
-	font-family: 'Bellefair', serif!important;
-	font-size: 20px;
-	font-style: normal!important;
-	color: black!important;
-
-	background-color: white;
-}
-
-#tasks label {
-}
-
-#tasks ul {
-	width: 90%;
-	margin: auto;
-	margin-top: 10px;
-	padding: 20px;
-	border: 1px dashed #ccc;
-	background-color: #e8e8e8;
-}
-
-#tasks li {
-	list-style-type: none;
-	width: 70%;
-	margin: auto;
-	margin-top: 8px;
-	padding: 3px;
-	border: 1px dashed #ccc;
-}
-
-#task-name {
-	text-decoration: inherit;
-}
-
-#task-name:hover {
-	background-color: #efefef;
-}
-
-.expectation {
-	font-family: 'Bellefair', serif;
-	font-size: 20px;
-	background-color: #fff;
-}
-
-#expectation-name {
-	width: 80%;
-	padding-left: 10px;
-	padding-right: 10px;
-}
-
-#expectation-name:hover {
-	background-color: #efefef;
+#header input {
+	text-align: center;
 }
 
 .options {
-	float: right;
+	text-align: right;
 }
-
-.options #complete {
-	color: inherit;
-}
-
-.options #complete:hover {
-	color: green;
-}
-
-.options #delete {
-	color: darkred;
-}
-
-.options #delete:hover {
-	color: red;
-}
-
-.options #collapse {
-	color: grey;
-}
-
-.options #collapse:hover {
-	color: black;
-}
-
-/*.complete :after {
-	content: ' -- done!';
-}*/
