@@ -44,8 +44,10 @@ var ExpectationView = Backbone.View.extend({
         if ( event.which !== ENTER_KEY || !this.$edit.val().trim() ) {
             return;
         }
-
+        
         this.model.editTitle(this.$edit.val());
+        console.log('ok');
+        Materialize.toast("Expectation updated to " + this.model.get('title'), 3000, 'rounded');
     },
 
     delete: function() {
