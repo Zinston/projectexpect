@@ -2,34 +2,46 @@
 <html>
 <head>
 	<title>Project Expect</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta charset="UTF-8">
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 	<!-- Styles -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<linl rel="stylesheet" href="css/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<section id="page-header"><h1>Project Expect</h1></section>
-	<section id="projectapp" class="container-fluid">
-		<header id="header" class="row">
-			<input id="new-task" placeholder="What needs to be accomplished?">
-		</header>
-		<section id="tasks" class="row"></section>
-		<footer id="footer" class="row"></footer>
-	</section>
-	<section id="page-footer">© Antoine Guenet 2017</section>
+	<main id="projectapp">
+		<section id="header">
+			<h1>Project Expect</h1>
+			<div class="container">
+				<input id="new-task" placeholder="Enter your task here">
+			</div>
+		</section>
+		<section id="content" class="container">
+			<ul id="tasks" class="collapsible popout" data-collapsible="expandable"></ul>
+		</section>
+	</main>
 
-    <script type="text/template" id="task-template">
-	    <span class="options">
-			<i class="fa fa-remove" id="delete"></i>
-			<i class="fa fa-minus" id="collapse"></i>
-		</span>
-		<label id="task-name"><%= title %></label>
-		<input id="edit-task" class="hidden" value="<%= title %>" onfocus="this.value = this.value;">
+	<footer class="page-footer green lighten-4">
+      	<div class="footer-copyright">
+        	<div class="container">
+        		© 2017 Antoine Guenet
+        	</div>
+      	</div>
+    </footer>
+
+    <!-- TEMPLATES -->
+	<script type="text/template" id="task-template">
+    	<div class="collapsible-header">
+    		<input class="col s12" id="task-name" value="<%= title %>" onfocus="this.value = this.value;">
+    		<span class="options col s2">
+		  		<i class="material-icons delete-btn" id="delete-task">clear</i>
+	  		</span>
+    	</div>
   	</script>
 
   	<script type="text/template" id="expectations-list-template">
@@ -37,16 +49,15 @@
   	</script>
   	
   	<script type="text/template" id="expectation-template">
-  		<span class="options">
-	  		<i class="fa fa-check" id="complete"></i>
-	  		<i class="fa fa-remove" id="delete"></i>
+  		<input class="col s10" id="expectation-name" value="<%= title %>" onfocus="this.value = this.value;">
+  		<span class="options col s2">
+	  		<i class="small material-icons complete-btn" id="complete">check</i>
+	  		<i class="small material-icons delete-btn" id="delete-exp">clear</i>
 	  	</span>
-  		<label id="expectation-name"><%= title %></label>
-		<input id="edit-expectation" class="hidden" value="<%= title %>" onfocus="this.value = this.value;">
   	</script>
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script src="bower_components/underscore/underscore-min.js"></script>
 	<script src="bower_components/backbone/backbone-min.js"></script>
 	<script src="bower_components/backbone.localStorage/build/backbone.localStorage.min.js"></script>

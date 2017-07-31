@@ -1,19 +1,18 @@
 var TaskView = Backbone.View.extend({
-    tagName: 'ul',
+    tagName: 'li',
     className: 'task',
 
     events: {
-        'click #collapse'                       :   'toggleCollapse',
-        'dblclick #task-name'         :   'edit',
-        'keypress #edit-task'         :   'close',
-        'click #delete'               :   'delete'
+        'keypress #task-name'         :   'close',
+        'click #delete-task'          :   'delete'
     },
 
     template: _.template( $('#task-template').html() ),
 
     initialize: function() {
         this.listenTo(this.model, 'change:complete', this.updateComplete);
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'change', this.renderTitle);
+        this.$el.collapsible();
     },
 
     render: function() {
@@ -21,38 +20,51 @@ var TaskView = Backbone.View.extend({
 
         this.$el.html( this.template( this.model.attributes ) );
 
-        if (this.$el.children('#new-expectation').length === 0) this.addExpectationsListView();
+        if (this.$el.children('#new-expectation').length === 0) {
+            this.addExpectationsListView();
+        }
 
-        this.updateComplete();
+        this.updateComplete('silent');
 
         this.model.logTasksAndExp();
         return this;
     },
 
+    renderTitle: function() {
+        this.$el.children('#task-name').val(this.model.get('title'));
+    },
+
     addExpectationsListView: function() {
         var view = new ExpectationsListView({ collection: this.model.expectations });
         this.$el.append( view.render().el );
+        this.$el.collapsible('open');
     },
 
-    updateComplete: function() {
-        if (this.model.get('complete')) this.$el.addClass('complete');
-        else this.$el.removeClass('complete');
+    updateComplete: function(ui) {
+        if (this.model.get('complete')) {
+            this.$el.children('.collapsible-header').addClass('complete');
+            if (ui != 'silent') {
+                Materialize.toast("Congratulations, you completed a task!", 3000, 'rounded');
+            };
+        }
+        else {
+            this.$el.children('.collapsible-header').removeClass('complete');
+        };
     },
 
     close: function() {
-        this.$edit = this.$('#edit-task');
+        this.$edit = this.$('#task-name');
         if ( event.which !== ENTER_KEY || !this.$edit.val().trim() ) {
             return;
         }
 
-        this.$el.children('#task-name').toggleClass('hidden');
-        this.$el.children('#edit-task').toggleClass('hidden');
-
         this.model.editTitle(this.$edit.val());
+        Materialize.toast("Task title updated to " + this.model.get('title'), 3000, 'rounded');
     },
 
     delete: function() {
         this.model.delete();
+        Materialize.toast("Task removed.", 3000, 'rounded');
     },
 
     edit: function() {
@@ -60,9 +72,5 @@ var TaskView = Backbone.View.extend({
         this.$el.children('#edit-task').removeClass('hidden');
 
         this.$el.children('#edit-task').focus();
-    },
-
-    toggleCollapse: function() {
-        this.$el.children('div').toggleClass('closed');
     }
 });

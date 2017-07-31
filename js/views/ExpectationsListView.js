@@ -1,6 +1,6 @@
 var ExpectationsListView = Backbone.View.extend({
-
-	template: _.template( $('#expectations-list-template').html() ),
+    template: _.template( $('#expectations-list-template').html() ),
+    className: 'collapsible-body',
 
     events: {
         'keypress #new-expectation'   :   'createOnEnter'
@@ -9,20 +9,19 @@ var ExpectationsListView = Backbone.View.extend({
     initialize: function() {
         this.listenTo(this.collection, 'add', this.addExpectation);
         this.listenTo(this.collection, 'remove', this.removeExpectation);
+        this.$el.collapsible();
     },
 
     render: function() {
         console.log('Render ExpectationsListView');
-
-        this.$el.html( this.template( this.collection.models ) );
+        var self = this;
+        this.$el.html( self.template( self.collection.models ) );
 
         // Display all expectations for this task (a new view for each)
-        var self = this;
         this.collection.models.forEach(function(expectation) {
             self.addExpectation(expectation);
         });
 
-        var self = this;
         this.$input = this.$el.children('#new-expectation');
         _.defer(function(){
             self.$input.focus();
@@ -33,7 +32,7 @@ var ExpectationsListView = Backbone.View.extend({
 
     addExpectation: function( expectation ) {
         var view = new ExpectationView({ model: expectation });
-        this.$el.append( view.render().el );
+        this.$el.children('#new-expectation').after( view.render().el );
     },
 
     createOnEnter: function( event ) {
