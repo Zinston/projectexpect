@@ -27,6 +27,11 @@ var TaskView = Backbone.View.extend({
         this.updateComplete('silent');
 
         this.model.logTasksAndExp();
+
+        var self = this;
+        _.defer(function() {
+            self.$el.find('#new-expectation').focus();
+        })
         return this;
     },
 

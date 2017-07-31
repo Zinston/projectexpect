@@ -43,9 +43,13 @@ var Task = Backbone.Model.extend({
 	},
 
 	editTitle: function(newTitle) {
-		this.save({
-			title: newTitle
-		});
+		try {
+			this.save({
+				title: newTitle
+			});
+		} catch (err) {
+			console.log(err);
+		}
 	},
 
 	expectationIsComplete: function(expectation) {
