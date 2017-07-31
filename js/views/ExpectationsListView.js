@@ -33,7 +33,7 @@ var ExpectationsListView = Backbone.View.extend({
 
     addExpectation: function( expectation ) {
         var view = new ExpectationView({ model: expectation });
-        this.$el.children('input').after( view.render().el );
+        this.$el.children('#new-expectation').after( view.render().el );
     },
 
     createOnEnter: function( event ) {
