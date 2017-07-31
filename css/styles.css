@@ -2,10 +2,15 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: #f9fff8;
 }
 
 main {
     flex: 1 0 auto;
+}
+
+#content {
+    background-color: white;
 }
 
 h1 {
