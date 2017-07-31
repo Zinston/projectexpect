@@ -2,7 +2,11 @@ var Task = Backbone.Model.extend({
 	initialize: function() {
 		var localExp = this.get('expectations');
 		this.expectations = new Expectations();
-		if (localExp) localExp.forEach((exp) => this.expectations.add(exp));
+		if (localExp) {
+			localExp.forEach(function(exp){
+				this.expectations.add(exp)
+			});
+		};
 
 		this.listenTo(this.expectations, 'all', this.completeIfExpectationsComplete);
 		this.listenTo(this.expectations, 'add', this.updateExpectations);
@@ -61,7 +65,9 @@ var Task = Backbone.Model.extend({
 		var result = true;
 
 		this.expectations.forEach(function(expectation) {
-			if (!self.expectationIsComplete(expectation)) return result = false;
+			if (!self.expectationIsComplete(expectation)) {
+				return result = false;
+			};
 		});
 		return result;
 	},
@@ -81,8 +87,11 @@ var Task = Backbone.Model.extend({
 
 		text += ' --- TASK --- \n';
 		text += this.get('title') + ' : ';
-		if (this.get('complete')) text += 'complete'
-		else text += 'todo';
+		if (this.get('complete')) {
+			text += 'complete'
+		} else {
+			text += 'todo';
+		};
 		text += '\n';
 
 		text += '\n';
@@ -90,8 +99,11 @@ var Task = Backbone.Model.extend({
 		text += " --- EXPECTATIONS --- \n";
 		this.expectations.each(function(expectation) {
 			text += expectation.get('title') + ' : ';
-			if (expectation.get('complete')) text += 'complete'
-			else text += 'todo';
+			if (expectation.get('complete')) {
+				text += 'complete';
+			} else {
+				text += 'todo';
+			};
 			text += '\n';
 		});
 
