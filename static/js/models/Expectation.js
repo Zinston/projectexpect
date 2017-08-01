@@ -13,7 +13,11 @@ var Expectation = Backbone.Model.extend({
     },
 
     delete: function() {
-		this.destroy();
+    	try {
+			this.destroy();
+		} catch (err) {
+			console.log(err);
+		};
 	},
 
 	editTitle: function(newTitle) {

@@ -2,12 +2,12 @@ var ProjectRouter = Backbone.Router.extend({
   /* define the route and function maps for this router */
   routes: {
     "main" : "showMain",
-    "project/:id" : "showProject"
+    "task/:id" : "showTask"
   },
 
   showMain: function(){},
 
-  showProject: function(id){}
+  showTask: function(id){}
 });
 
 new ProjectRouter();

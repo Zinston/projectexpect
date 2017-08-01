@@ -1,5 +1,6 @@
 var Expectations = Backbone.Collection.extend({
 	model: Expectation,
+	url: '/expectations_list',
 
 	addExpectation: function(expectation) {
 		try {
