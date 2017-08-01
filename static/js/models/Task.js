@@ -1,4 +1,6 @@
 var Task = Backbone.Model.extend({
+	idAttribute: '_id',
+
 	initialize: function() {
 		var localExp = this.get('expectations');
 		this.expectations = new Expectations();
@@ -8,6 +10,7 @@ var Task = Backbone.Model.extend({
 			}, this);
 		};
 
+		this.listenTo(this, 'sync', this.setMongoDBId);
 		this.listenTo(this.expectations, 'all', this.completeIfExpectationsComplete);
 		this.listenTo(this.expectations, 'add', this.updateExpectations);
 		this.listenTo(this.expectations, 'remove', this.updateExpectations);
@@ -18,6 +21,23 @@ var Task = Backbone.Model.extend({
 		complete: false,
 		title: 'No title'
 	},
+
+    setMongoDBId: function(collection, resp) {
+    	console.log('set mongodb');
+    	console.log(resp);
+    	var id = resp['_id']
+    	var self = this;
+		this.set('_id', id);
+		console.log(this);
+    },
+
+	/*parse: function(response) {
+		response = response['_id'];
+	    this.set('_id', response);
+	    console.log(this);
+
+	    return response;
+	},*/
 
 	validate: function(attributes){
 	    if(attributes.title === undefined){

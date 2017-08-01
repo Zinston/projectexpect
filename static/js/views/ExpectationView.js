@@ -46,7 +46,6 @@ var ExpectationView = Backbone.View.extend({
         }
         
         this.model.editTitle(this.$edit.val());
-        console.log('ok');
         Materialize.toast("Expectation updated to " + this.model.get('title'), 3000, 'rounded');
     },
 

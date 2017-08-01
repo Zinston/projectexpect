@@ -73,7 +73,7 @@
     <!-- FLASK -->
   	<script>
   		tasks.url = '{{ url_for("task_create") }}';
-        tasks.reset({{ tasks | tojson }});
+        tasks.reset({{ tasks | safe }});
     </script>
 </body>
 </html>
