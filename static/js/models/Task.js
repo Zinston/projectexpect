@@ -10,7 +10,7 @@ var Task = Backbone.Model.extend({
 			}, this);
 		};
 
-		this.listenTo(this, 'sync', this.setMongoDBId);
+		
 		this.listenTo(this.expectations, 'all', this.completeIfExpectationsComplete);
 		this.listenTo(this.expectations, 'add', this.updateExpectations);
 		this.listenTo(this.expectations, 'remove', this.updateExpectations);
@@ -27,12 +27,15 @@ var Task = Backbone.Model.extend({
     	console.log(resp);
     	var id = resp['_id']
     	var self = this;
-		this.set('_id', id);
+    	this.save({
+    		_id: id
+    	});
 		console.log(this);
     },
 
 	/*parse: function(response) {
 		response = response['_id'];
+		console.log(response);
 	    this.set('_id', response);
 	    console.log(this);
 

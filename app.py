@@ -30,6 +30,8 @@ class JSONEncoder(json.JSONEncoder):
 @app.route('/')
 def index():
     tasks = [task for task in TASKS.find()]
+    for task in tasks:
+        task[u'_id'] = str(task[u'_id'])
     tasks = dumps(tasks)
     return render_template('index.html', tasks=tasks)
 
@@ -58,7 +60,6 @@ def task_update(id):
 
 @app.route('/tasks/<string:id>', methods=['DELETE'])
 def task_delete(id):
-    print "------ HERE'S THE ID: " + id + " ------"
     task = _task_get_or_404(id)
     TASKS.remove({'_id': ObjectId(id)});
     return _task_response(task)
@@ -66,11 +67,12 @@ def task_delete(id):
 
 def _task_get_or_404(id):
     oid = ObjectId(id)
-    task = TASKS.find({'_id': id})
+    task = TASKS.find({'_id': oid})[0]
     if task is None:
         abort(404)
-    print str(list(task))
-    return _task_response(list(task))
+    print "----- ICI -----"
+    print dumps(task)
+    return task
 
 
 def _task_response(task):
