@@ -1,7 +1,7 @@
 var ProjectRouter = Backbone.Router.extend({
   /* define the route and function maps for this router */
   routes: {
-    "main" : "showMain",
+    "tasks" : "showMain",
     "task/:id" : "showTask"
   },
 

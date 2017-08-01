@@ -10,17 +10,23 @@ var AppView = Backbone.View.extend ({
       this.$taskInput = this.$('#new-task');
       this.$taskInput.focus();
 
+      this.$list = $('#tasks');
+
+      this.listenTo(tasks, 'reset', this.addAll);
       this.listenTo(tasks, 'add', this.addTask);
       this.listenTo(tasks, 'remove', this.render);
+
+      this.render();
    },
 
    render: function() {
-      $('#tasks').html('');
-      var self = this;
-      tasks.forEach(function(task) {
-         self.addTask(task);
-      });
+      this.addAll();
       console.log("Render AppView");
+   },
+
+   addAll: function () {
+      this.$list.html('');
+      tasks.each(this.addTask, this);
    },
 
    addTask: function( task ) {
@@ -33,7 +39,7 @@ var AppView = Backbone.View.extend ({
          return;
       }
 
-      var newTask = new Task({title: this.$taskInput.val(), taskId: nextID++, validate: true});
+      var newTask = new Task({title: this.$taskInput.val(), validate: true});
       tasks.create(newTask);
 
       this.$taskInput.val('');
@@ -41,7 +47,6 @@ var AppView = Backbone.View.extend ({
 });
 
 var ENTER_KEY = 13;
-var nextID = 0;
 
 $(function() {
    new AppView();

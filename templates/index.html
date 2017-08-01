@@ -69,5 +69,11 @@
     <script src="static/js/views/ExpectationsListView.js"></script>
     <script src="static/js/views/TaskView.js"></script>
     <script src="static/js/views/AppView.js"></script>
+
+    <!-- FLASK -->
+  	<script>
+  		tasks.url = '{{ url_for("task_create") }}';
+        tasks.reset({{ tasks | tojson }});
+    </script>
 </body>
 </html>

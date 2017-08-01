@@ -5,7 +5,7 @@ var Task = Backbone.Model.extend({
 		if (localExp) {
 			localExp.forEach(function(exp){
 				this.expectations.add(exp)
-			});
+			}, this);
 		};
 
 		this.listenTo(this.expectations, 'all', this.completeIfExpectationsComplete);
@@ -20,7 +20,7 @@ var Task = Backbone.Model.extend({
 	},
 
 	validate: function(attributes){
-	    if(attributes.title === undefined || attributes.taskId === undefined){
+	    if(attributes.title === undefined){
 	        return "Remember to set a title and an id for your task.";
 	    }
     },

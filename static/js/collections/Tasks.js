@@ -1,6 +1,5 @@
 var Tasks = Backbone.Collection.extend({
-	model: Task,
-	url: '/tasks_list'
+	model: Task
 });
 
 var tasks = new Tasks();

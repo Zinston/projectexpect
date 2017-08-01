@@ -1,23 +1,26 @@
 from flask import (Flask,
-    			   abort,
-    			   jsonify,
-    			   render_template,
-    			   request)
+                   abort,
+                   jsonify,
+                   render_template,
+                   request)
 
-tasks = []
+TASKS = []
 
 app = Flask(__name__, static_url_path='/static')
 app.debug = True
 
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    tasks = filter(None, TASKS)
+    return render_template('index.html', tasks=tasks)
+
 
 @app.route('/tasks/', methods=['POST'])
 def task_create():
     task = request.get_json()
-    task['id'] = len(tasks)
-    tasks.append(task)
+    task['id'] = len(TASKS)
+    TASKS.append(task)
     return _task_response(task)
 
 
@@ -38,14 +41,14 @@ def task_update(id):
 @app.route('/tasks/<int:id>', methods=['DELETE'])
 def task_delete(id):
     task = _task_get_or_404(id)
-    tasks[id] = None
+    TASKS[id] = None
     return _task_response(task)
 
 
 def _task_get_or_404(id):
-    if not (0 <= id < len(tasks)):
+    if not (0 <= id < len(TASKS)):
         abort(404)
-    task = tasks[id]
+    task = TASKS[id]
     if task is None:
         abort(404)
     return task
