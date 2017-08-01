@@ -1,7 +1,5 @@
 var Tasks = Backbone.Collection.extend({
-	model: Task,
-
-	localStorage: new Backbone.LocalStorage('project-tasks'),
+	model: Task
 });
 
 var tasks = new Tasks();

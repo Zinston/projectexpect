@@ -12,9 +12,6 @@ var AppView = Backbone.View.extend ({
 
       this.listenTo(tasks, 'add', this.addTask);
       this.listenTo(tasks, 'remove', this.render);
-
-      // Initialize the tasks from localStorage
-      tasks.fetch();
    },
 
    render: function() {
