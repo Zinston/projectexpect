@@ -42,9 +42,15 @@ class JSONEncoder(json.JSONEncoder):
 
 @app.route('/')
 def index():
-    tasks = getUserTasks()
+    tasks = []
+    if not isNotLoggedIn():
+        current_user_id = getCurrentUserID()
+        tasks = getUserTasks(current_user_id)
+        print "-----ICI-----"
+        print current_user_id
+        print str(tasks)
     user = session
-    return render_template('index.html', tasks=tasks, user=session)
+    return render_template('index.html', tasks=tasks, user=user)
 
 
 @app.route('/tasks/', methods=['POST'])
@@ -55,10 +61,9 @@ def task_create():
     else:
         TASKS.insert(task)
         current_user_id = getCurrentUserID()
-        current_user = getCurrentUser()
-        user_tasks = current_user['tasks']
-        user_tasks.append(str(task[u'_id']))
-        USERS.update({'_id': ObjectId(current_user_id)}, { '$set': {'tasks': user_tasks} })
+        user_tasks_ids = getUserTasksIds(current_user_id)
+        user_tasks_ids.append(str(task[u'_id']))
+        USERS.update({'_id': ObjectId(current_user_id)}, { '$set': {'tasks': user_tasks_ids} })
 
     return _task_response(task)
 
@@ -82,6 +87,7 @@ def task_update(id):
 def task_delete(id):
     task = _task_get_or_404(id)
     TASKS.remove({'_id': ObjectId(id)});
+
     return _task_response(task)
 
 def _task_get_or_404(id):
@@ -236,11 +242,24 @@ def getCurrentUser():
     user_id = getCurrentUserID()
     return getUserInfo(user_id)
 
-def getUserTasks():
-    tasks = [task for task in TASKS.find()]
-    for task in tasks:
-        task[u'_id'] = str(task[u'_id'])
-    tasks = dumps(tasks)
+def getUserTasksIds(user_id):
+    user = getUserInfo(user_id)
+    return user['tasks']
+
+def getUserTasks(user_id):
+    tasks = []
+    if isNotLoggedIn():
+        tasks = [task for task in TASKS.find()]
+        tasks = dumps(tasks)
+        for task in tasks:
+            task[u'_id'] = str(task[u'_id'])
+    else:
+        user_tasks_ids = getUserTasksIds(user_id)
+        for task_id in user_tasks_ids:
+            task = [task for task in TASKS.find({'_id': ObjectId(task_id)})]
+            task = task[0]
+            task[u'_id'] = str(task[u'_id'])
+            tasks.append(task)
     return tasks
 
 def isNotLoggedIn():
