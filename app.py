@@ -46,9 +46,7 @@ def index():
     if not isNotLoggedIn():
         current_user_id = getCurrentUserID()
         tasks = getUserTasks(current_user_id)
-        print "-----ICI-----"
-        print current_user_id
-        print str(tasks)
+        tasks = json.dumps(tasks)
     user = session
     return render_template('index.html', tasks=tasks, user=user)
 
@@ -86,7 +84,17 @@ def task_update(id):
 @app.route('/tasks/<string:id>', methods=['DELETE'])
 def task_delete(id):
     task = _task_get_or_404(id)
-    TASKS.remove({'_id': ObjectId(id)});
+    if isNotLoggedIn():
+        return _task_response(task)
+    else:
+        TASKS.remove({'_id': ObjectId(id)});
+        current_user_id = getCurrentUserID()
+        user_tasks_ids = getUserTasksIds(current_user_id)
+        updated_task_ids = []
+        for task_id in user_tasks_ids:
+            if task_id is not id:
+                updated_task_ids.append(task_id)
+        USERS.update({'_id': ObjectId(current_user_id)}, { '$set': {'tasks': updated_task_ids} })
 
     return _task_response(task)
 
@@ -257,8 +265,9 @@ def getUserTasks(user_id):
         user_tasks_ids = getUserTasksIds(user_id)
         for task_id in user_tasks_ids:
             task = [task for task in TASKS.find({'_id': ObjectId(task_id)})]
-            task = task[0]
-            task[u'_id'] = str(task[u'_id'])
+            if task:
+                task = task[0]
+                task[u'_id'] = str(task[u'_id'])
             tasks.append(task)
     return tasks
 
