@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Project Expect</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<meta charset="UTF-8">
-	<!-- Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-	<!-- Styles -->
-	<link type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection"/>
-	<link rel="stylesheet" href="static/css/styles.css">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Project Expect{% endblock %}
+{% block content %}
 	<main id="projectapp">
 		<section id="header">
 			<h1>Project Expect</h1>
@@ -25,16 +12,10 @@
 			<ul id="tasks" class="collapsible popout" data-collapsible="expandable"></ul>
 		</section>
 	</main>
+{% endblock %}
 
-	<footer class="page-footer green lighten-4">
-      	<div class="footer-copyright">
-        	<div class="container">
-        		© 2017 Antoine Guenet
-        	</div>
-      	</div>
-    </footer>
-
-    <!-- TEMPLATES -->
+{% block scripts %}
+	<!-- TEMPLATES -->
 	<script type="text/template" id="task-template">
     	<div class="collapsible-header">
     		<input class="col s12" id="task-name" value="<%= title %>" onfocus="this.value = this.value;">
@@ -57,10 +38,10 @@
   	</script>
 
 	<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="static/js/materialize.min.js" type="text/javascript" ></script>
-	<script src="static/bower_components/underscore/underscore-min.js"></script>
-	<script src="static/bower_components/backbone/backbone-min.js"></script>
-	<script src="static/js/models/Project.js"></script>
+  	<script src="static/js/materialize.min.js" type="text/javascript" ></script>
+  	<script src="static/bower_components/underscore/underscore-min.js"></script>
+  	<script src="static/bower_components/backbone/backbone-min.js"></script>
+  	<script src="static/js/models/Project.js"></script>
     <script src="static/js/models/Task.js"></script>
     <script src="static/js/models/Expectation.js"></script>
     <script src="static/js/collections/Expectations.js"></script>
@@ -69,11 +50,9 @@
     <script src="static/js/views/ExpectationsListView.js"></script>
     <script src="static/js/views/TaskView.js"></script>
     <script src="static/js/views/AppView.js"></script>
-
-    <!-- FLASK -->
+<!-- FLASK -->
   	<script>
   		tasks.url = '{{ url_for("task_create") }}';
         tasks.reset({{ tasks | safe }});
     </script>
-</body>
-</html>
+{% endblock %}

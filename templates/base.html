@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>{% block title %}{% endblock %}</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  	<meta charset="UTF-8">
+  	<!-- Fonts -->
+  	<link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  	<!-- Styles -->
+  	<link type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection"/>
+  	<link rel="stylesheet" href="static/css/styles.css">
+  </head>
+  <body>
+
+  	{% block content %}
+    {% endblock %}
+
+    <footer class="page-footer green lighten-4">
+        <div class="footer-copyright">
+          <div class="container">
+            © 2017 Antoine Guenet
+          </div>
+        </div>
+    </footer>
+
+    {% block scripts %}
+    {% endblock %}
+    
+  </body>
+</html>

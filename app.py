@@ -64,6 +64,9 @@ def task_delete(id):
     TASKS.remove({'_id': ObjectId(id)});
     return _task_response(task)
 
+@app.route('/login')
+def show_login():
+    return render_template('login.html')
 
 def _task_get_or_404(id):
     oid = ObjectId(id)
