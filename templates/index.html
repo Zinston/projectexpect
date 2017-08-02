@@ -18,7 +18,7 @@
 	<!-- TEMPLATES -->
 	<script type="text/template" id="task-template">
     	<div class="collapsible-header">
-    		<input class="col s12" id="task-name" value="<%= title %>" onfocus="this.value = this.value;">
+    		<input class="col s12" id="task-name" value="<%- title %>" onfocus="this.value = this.value;">
     		<span class="options col s2">
 		  		<i class="material-icons delete-btn" id="delete-task">clear</i>
 	  		</span>
@@ -30,7 +30,7 @@
   	</script>
   	
   	<script type="text/template" id="expectation-template">
-  		<input class="col s10" id="expectation-name" value="<%= title %>" onfocus="this.value = this.value;">
+  		<input class="col s10" id="expectation-name" value="<%- title %>" onfocus="this.value = this.value;">
   		<span class="options col s2">
 	  		<i class="small material-icons complete-btn" id="complete">check</i>
 	  		<i class="small material-icons delete-btn" id="delete-exp">clear</i>
