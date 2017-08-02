@@ -44,7 +44,8 @@ def index():
     for task in tasks:
         task[u'_id'] = str(task[u'_id'])
     tasks = dumps(tasks)
-    return render_template('index.html', tasks=tasks)
+    user = session
+    return render_template('index.html', tasks=tasks, user=session)
 
 
 @app.route('/tasks/', methods=['POST'])
@@ -204,7 +205,7 @@ def gdisconnect():
         return response
 
 
-def createUser(login_session):
+def createUser(session):
     newUser = {'name': session['username'],
                'email': session['email'],
                'picture': session['picture']}
@@ -231,14 +232,14 @@ def makeAPICall(url, method):
     h = httplib2.Http()
     return h.request(url, method)[1]
 
-def makeUserIfNew(login_session):
+def makeUserIfNew(session):
     user_id = getUserID(session['email'])
     if not user_id:
         user_id = createUser(session)
     session['user_id'] = user_id
     return user_id
 
-def successLoginPage(login_session):
+def successLoginPage(session):
     output = ''
     output += '<h2>Welcome, '
     output += session['username']
