@@ -12,7 +12,7 @@
 			<div id="signinButton">
 				<span class="g-signin"
 					  data-scope="openid email"
-					  data-clientid="23810427018-kin2pil5m054pp8jsm1h1btvij30rtp6.apps.googleusercontent.com"
+					  data-clientid="2130846046-7ti1bcra973uc3f0lc5if989qos3lsk4.apps.googleusercontent.com"
 					  data-redirecturi="postmessage"
 					  data-accesstype="offline"
 					  data-cookiepolicy="single_host_origin"
@@ -42,7 +42,7 @@
 					data: authResult['code'],
 					success: function(result) {
 						if (result) {
-							$('#result').html('Login Successful!<br>' + result + '<br>Redirecting...');
+							$('#result').html('<div class="container" style="text-align:center">Login Successful!<br>' + result + '<br>Redirecting...</div>');
 							setTimeout(function() {
 								window.location.href = "/";
 							}, 4000);
