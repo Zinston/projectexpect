@@ -2,8 +2,7 @@
 _Project Expect_ is a simple single page Todo app where you set your expectations for each task. A task is complete when each expectation is met. It was inspired by the [Jasmine](https://jasmine.github.io/) testing workflow.
 
 ## Installation
-* Clone the GitHub repository : `git clone https://github.com/Zinston/projectexpect.git`
-* Open index.html
+* _Instructions for installation coming soon.__
 
 ## Usage
 * Add tasks by filling the main input field.
@@ -17,8 +16,8 @@ _Project Expect_ is a simple single page Todo app where you set your expectation
 * Add expectations
 * Edit and delete tasks and expectations
 * Complete expectations
-* Tasks complete automatically when all its expectations are completed.
-* /!\ There is no storage of anything yet: refresh the page and everything is gone.
+* Tasks complete automatically when all its expectations are completed
+* Login with Google Plus and persist your tasks in the database
 
 ## License
 _Project Expect_ is released under the [MIT license](projectexpect/LICENSE.txt).
