@@ -92,7 +92,11 @@ def task_delete(id):
         user_tasks_ids = getUserTasksIds(current_user_id)
         updated_task_ids = []
         for task_id in user_tasks_ids:
-            if task_id is not id:
+            print "-----ICI-----"
+            print "task_id = " + task_id
+            print "id = " + id
+            if task_id != id:
+                print "task_id is not id"
                 updated_task_ids.append(task_id)
         USERS.update({'_id': ObjectId(current_user_id)}, { '$set': {'tasks': updated_task_ids} })
 

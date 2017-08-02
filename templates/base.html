@@ -19,9 +19,12 @@
       <div class="nav-wrapper">
       <a href="{{url_for('index')}}" class="brand-logo">Project-Expect</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        {% if user and user.username %}
+        {% if user and user.email %}
         <li><a href="{{url_for('disconnect')}}">Disconnect</a></li>
-        <li><div class="chip"><img src="{{user.picture}}" alt="{{user.username}}">{{user.username}}</div></li>
+        <li><div class="chip">
+          {% if user.username %}<img src="{{user.picture}}" alt="{{user.username}}">{{user.username}}
+          {% else %} <img src="{{user.picture}}" alt="{{user.email}}">{{user.email}}
+          {% endif%}</div></li>
         {% else %}
         <li><a href="{{url_for('show_login')}}">Login</a></li>
         {% endif %}
