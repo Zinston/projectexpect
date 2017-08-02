@@ -219,8 +219,8 @@ def getUserInfo(user_id):
 
 def getUserID(email):
     try:
-        user = session.query(User).filter_by(email=email).one()
-        return user.id
+        user = USERS.find({'email': email})[0]
+        return str(user[u'_id'])
     except:
         return None
 
