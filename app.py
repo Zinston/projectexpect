@@ -2,8 +2,10 @@ from flask import (Flask,
                    abort,
                    jsonify,
                    render_template,
+                   redirect,
                    request,
                    session,
+                   url_for,
                    make_response)
 from flask_pymongo import PyMongo
 import json
@@ -113,10 +115,8 @@ def disconnect():
         del session['picture']
         del session['user_id']
         del session['provider']
-
-        flash("Successfully disconnected.")
     else:
-        flash("You were not logged in to begin with!")
+        pass
 
     return redirect(url_for('index'))
 
