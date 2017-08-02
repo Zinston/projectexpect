@@ -2,7 +2,6 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background-color: #f9fff8;
 }
 
 main {
@@ -10,7 +9,6 @@ main {
 }
 
 #content {
-    background-color: white;
 }
 
 h1 {
