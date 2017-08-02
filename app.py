@@ -42,10 +42,7 @@ class JSONEncoder(json.JSONEncoder):
 
 @app.route('/')
 def index():
-    tasks = [task for task in TASKS.find()]
-    for task in tasks:
-        task[u'_id'] = str(task[u'_id'])
-    tasks = dumps(tasks)
+    tasks = getUserTasks()
     user = session
     return render_template('index.html', tasks=tasks, user=session)
 
@@ -53,7 +50,16 @@ def index():
 @app.route('/tasks/', methods=['POST'])
 def task_create():
     task = request.get_json()
-    TASKS.insert(task)
+    if isNotLoggedIn():
+        return _task_response(task)
+    else:
+        TASKS.insert(task)
+        current_user_id = getCurrentUserID()
+        current_user = getCurrentUser()
+        user_tasks = current_user['tasks']
+        user_tasks.append(str(task[u'_id']))
+        USERS.update({'_id': ObjectId(current_user_id)}, { '$set': {'tasks': user_tasks} })
+
     return _task_response(task)
 
 
@@ -83,8 +89,6 @@ def _task_get_or_404(id):
     task = TASKS.find({'_id': oid})[0]
     if task is None:
         abort(404)
-    print "----- ICI -----"
-    print dumps(task)
     return task
 
 
@@ -208,7 +212,8 @@ def gdisconnect():
 def createUser(session):
     newUser = {'name': session['username'],
                'email': session['email'],
-               'picture': session['picture']}
+               'picture': session['picture'],
+               'tasks': []}
     USERS.insert(newUser)
     user = USERS.find({'email': session['email']})[0]
     return str(user[u'_id'])
@@ -223,6 +228,20 @@ def getUserID(email):
         return str(user[u'_id'])
     except:
         return None
+
+def getCurrentUserID():
+    return getUserID(session['email'])
+
+def getCurrentUser():
+    user_id = getCurrentUserID()
+    return getUserInfo(user_id)
+
+def getUserTasks():
+    tasks = [task for task in TASKS.find()]
+    for task in tasks:
+        task[u'_id'] = str(task[u'_id'])
+    tasks = dumps(tasks)
+    return tasks
 
 def isNotLoggedIn():
     if 'username' not in session:
