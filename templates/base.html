@@ -17,8 +17,8 @@
 
     <nav>
       <div class="nav-wrapper">
-      <a href="{{url_for('index')}}" class="brand-logo">Project Expect</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <a href="{{url_for('index')}}" class="brand-logo hide-on-med-and-down">Project Expect</a>
+      <ul id="nav-mobile" class="right">
         {% if user and user.email %}
         <li><a href="{{url_for('disconnect')}}">Disconnect</a></li>
         <li><div class="chip">
