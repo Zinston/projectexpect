@@ -1,5 +1,6 @@
 Flask==0.12.2
 Flask-PyMongo==0.5.1
+gunicorn==19.7.1
 httplib2==0.10.3
 oauth2client==4.1.1
 requests==2.13.0

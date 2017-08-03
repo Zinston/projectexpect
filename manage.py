@@ -298,6 +298,5 @@ def successLoginPage(session):
     return output
 
 
-if __name__ == '__main__':
-    app.secret_key = 'topsecretkey to put in a json later'
-    app.run(host='0.0.0.0', port=5000)
+app.secret_key = 'topsecretkey to put in a json later'
+app.run(host='0.0.0.0', port=5000)
