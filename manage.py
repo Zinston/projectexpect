@@ -16,16 +16,20 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
 import requests
-import random, string
+import random
+import string
 
-CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())
+CLIENT_ID = CLIENT_ID['web']['client_id']
 MONGO_INFO = json.loads(open('mongo_secrets.json', 'r').read())
 
 app = Flask(__name__, static_url_path='/static')
 app.debug = True
 
 app.config['MONGO_DBNAME'] = 'tasksdb'
-app.config['MONGO_URI'] = 'mongodb://' + MONGO_INFO['user'] + ':' + MONGO_INFO['password'] + '@ds133281.mlab.com:33281/heroku_vlwjml45'
+app.config['MONGO_URI'] = 'mongodb://' + MONGO_INFO['user'] + ':'
+app.config['MONGO_URI'] += MONGO_INFO['password']
+app.config['MONGO_URI'] += '@ds133281.mlab.com:33281/heroku_vlwjml45'
 
 mongo = PyMongo(app)
 
@@ -62,7 +66,8 @@ def task_create():
         current_user_id = getCurrentUserID()
         user_tasks_ids = getUserTasksIds(current_user_id)
         user_tasks_ids.append(str(task[u'_id']))
-        USERS.update({'_id': ObjectId(current_user_id)}, { '$set': {'tasks': user_tasks_ids} })
+        USERS.update({'_id': ObjectId(current_user_id)},
+                     {'$set': {'tasks': user_tasks_ids}})
 
     return _task_response(task)
 
@@ -78,7 +83,7 @@ def task_update(id):
     task = _task_get_or_404(id)
     updates = request.get_json()
     updates.pop('_id', None)
-    TASKS.update({'_id': ObjectId(id)}, updates);
+    TASKS.update({'_id': ObjectId(id)}, updates)
     return _task_response(task)
 
 
@@ -88,16 +93,18 @@ def task_delete(id):
     if isNotLoggedIn():
         return _task_response(task)
     else:
-        TASKS.remove({'_id': ObjectId(id)});
+        TASKS.remove({'_id': ObjectId(id)})
         current_user_id = getCurrentUserID()
         user_tasks_ids = getUserTasksIds(current_user_id)
         updated_task_ids = []
         for task_id in user_tasks_ids:
             if task_id != id:
                 updated_task_ids.append(task_id)
-        USERS.update({'_id': ObjectId(current_user_id)}, { '$set': {'tasks': updated_task_ids} })
+        USERS.update({'_id': ObjectId(current_user_id)},
+                     {'$set': {'tasks': updated_task_ids}})
 
     return _task_response(task)
+
 
 def _task_get_or_404(id):
     oid = ObjectId(id)
@@ -114,9 +121,11 @@ def _task_response(task):
 # LOGIN
 @app.route('/login')
 def show_login():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
+    for x in range(32):
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits))
     session['state'] = state
     return render_template('login.html', STATE=state)
+
 
 @app.route('/disconnect')
 def disconnect():
@@ -139,7 +148,8 @@ def disconnect():
 
     return redirect(url_for('index'))
 
-## GOOGLE+
+
+# GOOGLE+
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
@@ -154,13 +164,15 @@ def gconnect():
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
-        response = make_response(json.dumps('Failed to upgrade the authorization code.'), 401)
+        response_text = json.dumps('Failed to upgrade the authorization code.')
+        response = make_response(response_text, 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    
+
     # Check that the access token is valid.
     access_token = credentials.access_token
-    url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % access_token)
+    url = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token='
+    url += access_token
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
     # If there was an error in the access token info, abort.
@@ -178,7 +190,8 @@ def gconnect():
     stored_access_token = session.get('access_token')
     stored_gplus_id = session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'), 200)
+        response_text = json.dumps('Current user is already connected.')
+        response = make_response(response_text, 200)
         response.headers['Content-Type'] = 'application/json'
 
     # Store the access token in the session for later use.
@@ -203,13 +216,15 @@ def gconnect():
     output = successLoginPage(session)
     return output
 
+
 # Disconnect - Revoke a current user's token and reset their session.
 @app.route('/gdisconnect')
 def gdisconnect():
     # Only disconnect a connected user.
     access_token = session.get('access_token')
     if access_token is None:
-        response = make_response(json.dumps('Current user not connected.'), 401)
+        response_text = json.dumps('Current user not connected.')
+        response = make_response(response_text, 401)
         response.headers['Content-Type'] = 'application/json'
         return response
     # Execute HTTP GET request to revoke current token.
@@ -219,7 +234,8 @@ def gdisconnect():
 
     if result['status'] is not '200':
         # For whatever reason, the given token was invalid.
-        response = make_response(json.dumps('Failed to revoke token for given user.'), 400)
+        response_text = json.dumps('Failed to revoke token for given user.')
+        response = make_response(response_text, 400)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -233,9 +249,11 @@ def createUser(session):
     user = USERS.find({'email': session['email']})[0]
     return str(user[u'_id'])
 
+
 def getUserInfo(user_id):
     user = USERS.find({'_id': ObjectId(user_id)})[0]
     return user
+
 
 def getUserID(email):
     try:
@@ -244,16 +262,20 @@ def getUserID(email):
     except:
         return None
 
+
 def getCurrentUserID():
     return getUserID(session['email'])
+
 
 def getCurrentUser():
     user_id = getCurrentUserID()
     return getUserInfo(user_id)
 
+
 def getUserTasksIds(user_id):
     user = getUserInfo(user_id)
     return user['tasks']
+
 
 def getUserTasks(user_id):
     tasks = []
@@ -272,13 +294,16 @@ def getUserTasks(user_id):
             tasks.append(task)
     return tasks
 
+
 def isNotLoggedIn():
     if 'username' not in session:
         return True
 
+
 def makeAPICall(url, method):
     h = httplib2.Http()
     return h.request(url, method)[1]
+
 
 def makeUserIfNew(session):
     user_id = getUserID(session['email'])
@@ -287,6 +312,7 @@ def makeUserIfNew(session):
     session['user_id'] = user_id
     return user_id
 
+
 def successLoginPage(session):
     output = ''
     output += '<h2>Welcome, '
@@ -294,7 +320,8 @@ def successLoginPage(session):
     output += '!</h2>'
     output += '<img src="'
     output += session['picture']
-    output += '" style="width: 100px; height: 100px; border-radius: 50px; -webkit-border-radius: 50px; -moz-border-radius: 50px;">'
+    output += '" style="width: 100px; height: 100px; border-radius: 50px; '
+    output += '-webkit-border-radius: 50px; -moz-border-radius: 50px;">'
     return output
 
 
