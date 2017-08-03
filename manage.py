@@ -303,5 +303,5 @@ def successLoginPage(session):
 
 
 if __name__ == '__main__':
-    app.secret_key = 'make_this_secure_later'
+    app.secret_key = 'topsecretkey to put in a json later'
     app.run(host='0.0.0.0', port=process.env.PORT)
