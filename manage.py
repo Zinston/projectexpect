@@ -299,4 +299,3 @@ def successLoginPage(session):
 
 
 app.secret_key = 'topsecretkey to put in a json later'
-app.run(host='0.0.0.0', port=5000)
