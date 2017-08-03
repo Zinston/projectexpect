@@ -25,11 +25,7 @@ app = Flask(__name__, static_url_path='/static')
 app.debug = True
 
 app.config['MONGO_DBNAME'] = 'tasksdb'
-app.config['MONGO_URI'] = 'mongodb://'
-                          + MONGO_INFO['user']
-                          + ':'
-                          + MONGO_INFO['password']
-                          + '@ds133281.mlab.com:33281/heroku_vlwjml45'
+app.config['MONGO_URI'] = 'mongodb://' + MONGO_INFO['user'] + ':' + MONGO_INFO['password'] + '@ds133281.mlab.com:33281/heroku_vlwjml45'
 
 mongo = PyMongo(app)
 
@@ -308,4 +304,4 @@ def successLoginPage(session):
 
 if __name__ == '__main__':
     app.secret_key = 'make_this_secure_later'
-    app.run(host='0.0.0.0', port=process.env.PORT)
+    #app.run(host='0.0.0.0', port=process.env.PORT)
