@@ -12,7 +12,6 @@ var TaskView = Backbone.View.extend({
     initialize: function() {
         this.listenTo(this.model, 'change:complete', this.updateComplete);
         this.listenTo(this.model, 'change', this.renderTitle);
-        this.listenTo(this.model, 'change:expectations', this.model.logTasksAndExp);
         this.$el.collapsible();
     },
 
@@ -66,8 +65,6 @@ var TaskView = Backbone.View.extend({
         this.model.editTitle(this.$edit.val());
         this.$el.find('#new-expectation').focus();
         Materialize.toast('Task updated to "' + this.model.get('title') + '"', 3000, 'rounded');
-
-        this.model.logTasksAndExp();
     },
 
     delete: function() {
