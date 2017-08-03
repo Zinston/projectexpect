@@ -19,12 +19,17 @@ import requests
 import random, string
 
 CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+MONGO_INFO = json.loads(open('mongo_secrets.json', 'r').read())
 
 app = Flask(__name__, static_url_path='/static')
 app.debug = True
 
 app.config['MONGO_DBNAME'] = 'tasksdb'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/tasksdb'
+app.config['MONGO_URI'] = 'mongodb://'
+                          + MONGO_INFO['user']
+                          + ':'
+                          + MONGO_INFO['password']
+                          + '@ds133281.mlab.com:33281/heroku_vlwjml45'
 
 mongo = PyMongo(app)
 

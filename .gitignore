@@ -1,3 +1,4 @@
 /data*
 *DS_Store*
 client_secrets.json
+mongo_secrets.json
